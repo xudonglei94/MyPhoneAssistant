@@ -2,6 +2,7 @@ package org.crazyit.myphoneassistant.di.module;
 
 import android.app.ProgressDialog;
 
+import org.crazyit.myphoneassistant.data.http.ApiService;
 import org.crazyit.myphoneassistant.presenter.RecommendPresenter;
 import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
 import org.crazyit.myphoneassistant.data.RecommendModel;
@@ -16,12 +17,12 @@ import dagger.Provides;
 //这里面的工作全部都是用来new东西的
 //这个Module是告诉dragger2这个类是用来提供实例的
 @Module
-public class RecommendMoudle {
+public class RecommendModule {
 
     //通过构造方法把view传进来
     private  RecommendContract.View mView;
 
-    public  RecommendMoudle(RecommendContract.View view){
+    public RecommendModule(RecommendContract.View view){
         this.mView=view;
     }
 
@@ -40,8 +41,8 @@ public class RecommendMoudle {
         return  mView;
     }
     @Provides
-    public  RecommendModel provideModel(){
-        return new RecommendModel();
+    public  RecommendModel provideModel(ApiService apiService){
+        return new RecommendModel(apiService);
     }
     @Provides
     public ProgressDialog provideProgressDialog(RecommendContract.View view){

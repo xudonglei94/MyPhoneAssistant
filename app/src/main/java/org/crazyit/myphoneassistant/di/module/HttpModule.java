@@ -1,23 +1,28 @@
-package org.crazyit.myphoneassistant.data.http;
+package org.crazyit.myphoneassistant.di.module;
 
-
+import org.crazyit.myphoneassistant.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.logging.HttpLoggingInterceptor;
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 /**
- * Created by Administrator on 2018/6/8.
+ * Created by Administrator on 2018/6/10.
  */
+@Module
+public class HttpModule {
 
-public class HttpManager {
-
-    public OkHttpClient getOkHttpClient(){
+    @Provides
+    @Singleton
+    public OkHttpClient provideOkHttpClient(){
         //log拦截器
         HttpLoggingInterceptor logging=new HttpLoggingInterceptor();
         //开发模式记录整个body,否则只记录基本信息如返回200,http协议版本等等.
@@ -35,7 +40,9 @@ public class HttpManager {
                 .readTimeout(10,TimeUnit.SECONDS)
                 .build();
     }
-    public Retrofit getRetrofit(OkHttpClient okHttpClient){
+    @Provides
+    @Singleton
+    public Retrofit provideRetrofit(OkHttpClient okHttpClient){
 
 
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -47,5 +54,12 @@ public class HttpManager {
 
         return builder.build();
 
+    }
+
+    //将之前的ApiService提供一个方法在这个HttpModule中创建出来
+    @Provides
+    @Singleton
+    public  ApiService provideApiService(Retrofit retrofit){
+        return  retrofit.create(ApiService.class);
     }
 }

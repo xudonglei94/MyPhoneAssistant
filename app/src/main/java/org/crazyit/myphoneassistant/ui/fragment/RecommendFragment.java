@@ -1,5 +1,6 @@
 package org.crazyit.myphoneassistant.ui.fragment;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,9 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.crazyit.myphoneassistant.AppApplication;
 import org.crazyit.myphoneassistant.R;
-import org.crazyit.myphoneassistant.di.DaggerRecommendComponent;
-import org.crazyit.myphoneassistant.di.module.RecommendMoudle;
+
+import org.crazyit.myphoneassistant.di.component.DaggerAppComponent;
+import org.crazyit.myphoneassistant.di.component.DaggerRecommendComponent;
+import org.crazyit.myphoneassistant.di.module.RecommendModule;
 import org.crazyit.myphoneassistant.ui.adapter.RecommendAppAdapter;
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
@@ -54,14 +58,14 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
         ButterKnife.bind(this, view);
 
-        DaggerRecommendComponent.builder()
-                .recommendMoudle(new RecommendMoudle(this)).build().inject(this);
+//        DaggerRecommendComponent.builder()
+//                .recommendModule(new RecommendModule(this)).build().inject(this);
 //        mProgressDialog=new ProgressDialog(getActivity());
         //Dagger2会给我们自动生成生成一个interface RecommendComponent的子类,我们可以看到它是实现了RecommendComponent这个接口的
         //注入的方法通过build
         //这个是复杂的方法我们在这里使用简单的额方法
 //        DaggerRecommendComponent.builder()
-//                .recommendMoudle(new RecommendMoudle()).build().inject(this);
+//                .recommendMoudle(new RecommendModule()).build().inject(this);
 
         //简单的写法是
         //这个方法需要在onActvityCreate里面去调用比较靠谱
@@ -71,6 +75,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         //mPresenter=new RecommendPresenter(this);
         //Dragger需要我们进行注入注入是不能省的,注入之前需要我们重新编译一下
         //通过build---rebuild来注入
+
+
+        DaggerRecommendComponent.builder().appComponent(((AppApplication)getActivity().getApplication()).getAppComponent())
+                .recommendModule(new RecommendModule(this)).build().inject(this);
 
         initData();
         return view;
