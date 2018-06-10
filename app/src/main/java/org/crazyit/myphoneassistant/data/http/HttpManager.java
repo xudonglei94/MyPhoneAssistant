@@ -1,10 +1,9 @@
-package org.crazyit.myphoneassistant.ui.http;
+package org.crazyit.myphoneassistant.data.http;
 
 
 
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.SSLSocketFactory;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

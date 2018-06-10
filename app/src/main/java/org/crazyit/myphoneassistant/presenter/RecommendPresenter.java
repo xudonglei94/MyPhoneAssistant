@@ -1,9 +1,9 @@
-package org.crazyit.myphoneassistant.ui.presenter;
+package org.crazyit.myphoneassistant.presenter;
 
-import org.crazyit.myphoneassistant.ui.bean.AppInfo;
-import org.crazyit.myphoneassistant.ui.bean.PageBean;
-import org.crazyit.myphoneassistant.ui.data.RecommendModel;
-import org.crazyit.myphoneassistant.ui.presenter.contract.RecommendContract;
+import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.bean.PageBean;
+import org.crazyit.myphoneassistant.data.RecommendModel;
+import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,9 +23,9 @@ public class RecommendPresenter implements RecommendContract.Presenter {
     //真正干活的人
     private RecommendModel mModel;
 
-    public  RecommendPresenter(RecommendContract.View view){
+    public  RecommendPresenter(RecommendContract.View view, RecommendModel model){
         this.mView=view;
-        mModel=new RecommendModel();
+        mModel=model;
 
 
     }

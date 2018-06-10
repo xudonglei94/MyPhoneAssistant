@@ -1,7 +1,6 @@
-package org.crazyit.myphoneassistant.ui.bean;
+package org.crazyit.myphoneassistant.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Administrator on 2018/6/8.

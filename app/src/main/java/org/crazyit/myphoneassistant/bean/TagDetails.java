@@ -1,4 +1,4 @@
-package org.crazyit.myphoneassistant.ui.bean;
+package org.crazyit.myphoneassistant.bean;
 
 /**
  * Created by Administrator on 2018/6/9.

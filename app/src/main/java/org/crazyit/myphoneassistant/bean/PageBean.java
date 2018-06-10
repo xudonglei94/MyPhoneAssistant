@@ -1,4 +1,4 @@
-package org.crazyit.myphoneassistant.ui.bean;
+package org.crazyit.myphoneassistant.bean;
 
 import java.util.List;
 

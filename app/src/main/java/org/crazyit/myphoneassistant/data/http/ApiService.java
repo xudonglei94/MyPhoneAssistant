@@ -1,7 +1,7 @@
-package org.crazyit.myphoneassistant.ui.http;
+package org.crazyit.myphoneassistant.data.http;
 
-import org.crazyit.myphoneassistant.ui.bean.AppInfo;
-import org.crazyit.myphoneassistant.ui.bean.PageBean;
+import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.bean.PageBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,8 +1,8 @@
-package org.crazyit.myphoneassistant.ui.presenter.contract;
+package org.crazyit.myphoneassistant.presenter.contract;
 
-import org.crazyit.myphoneassistant.ui.bean.AppInfo;
-import org.crazyit.myphoneassistant.ui.fragment.BaseView;
-import org.crazyit.myphoneassistant.ui.presenter.BasePresenter;
+import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.ui.BaseView;
+import org.crazyit.myphoneassistant.presenter.BasePresenter;
 
 import java.util.List;
 

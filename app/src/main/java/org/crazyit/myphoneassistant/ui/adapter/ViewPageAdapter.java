@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import org.crazyit.myphoneassistant.ui.bean.FragmentInfo;
 import org.crazyit.myphoneassistant.ui.fragment.CategoryFragment;
 import org.crazyit.myphoneassistant.ui.fragment.GamesFragment;
-import org.crazyit.myphoneassistant.ui.fragment.HomeFragment;
 import org.crazyit.myphoneassistant.ui.fragment.RankingFragment;
 import org.crazyit.myphoneassistant.ui.fragment.RecommendFragment;
 

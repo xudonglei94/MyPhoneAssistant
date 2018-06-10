@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'com.neenbedankt.android-apt'//添加apt命令
+//annotationProcessor: 'android-apt'
 
 
 android {
@@ -45,5 +47,10 @@ dependencies {
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //dagger2
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2' //指定注解处理器
+    compile 'com.google.dagger:dagger:2.0.2'  //dagger公用api
+    provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
 
 }

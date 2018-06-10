@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.crazyit.myphoneassistant.R;
-import org.crazyit.myphoneassistant.ui.bean.AppInfo;
+import org.crazyit.myphoneassistant.bean.AppInfo;
 
 import java.util.List;
 

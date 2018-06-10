@@ -15,12 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import org.crazyit.myphoneassistant.R;
+import org.crazyit.myphoneassistant.di.DaggerRecommendComponent;
+import org.crazyit.myphoneassistant.di.module.RecommendMoudle;
 import org.crazyit.myphoneassistant.ui.adapter.RecommendAppAdapter;
-import org.crazyit.myphoneassistant.ui.bean.AppInfo;
-import org.crazyit.myphoneassistant.ui.presenter.RecommendPresenter;
-import org.crazyit.myphoneassistant.ui.presenter.contract.RecommendContract;
+import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,8 +38,12 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     RecyclerView recycleView;
     private RecommendAppAdapter mAdatper;
 
-    private ProgressDialog mProgressDialog;
-    private  RecommendContract.Presenter mPresenter;
+    @Inject
+    ProgressDialog mProgressDialog;
+    //使用dragger2的步骤第一需要告诉dragger2我们需要这个对象
+    //注意这里不能是private因为私有是没办法进行依赖的
+    @Inject
+    RecommendContract.Presenter mPresenter;
 
 
     @Nullable
@@ -46,9 +53,24 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
 
         ButterKnife.bind(this, view);
-        mProgressDialog=new ProgressDialog(getActivity());
 
-        mPresenter=new RecommendPresenter(this);
+        DaggerRecommendComponent.builder()
+                .recommendMoudle(new RecommendMoudle(this)).build().inject(this);
+//        mProgressDialog=new ProgressDialog(getActivity());
+        //Dagger2会给我们自动生成生成一个interface RecommendComponent的子类,我们可以看到它是实现了RecommendComponent这个接口的
+        //注入的方法通过build
+        //这个是复杂的方法我们在这里使用简单的额方法
+//        DaggerRecommendComponent.builder()
+//                .recommendMoudle(new RecommendMoudle()).build().inject(this);
+
+        //简单的写法是
+        //这个方法需要在onActvityCreate里面去调用比较靠谱
+        //DaggerRecommendComponent.create();
+
+        //其次这个地方需要删掉因为我们已经使用Dragger2了
+        //mPresenter=new RecommendPresenter(this);
+        //Dragger需要我们进行注入注入是不能省的,注入之前需要我们重新编译一下
+        //通过build---rebuild来注入
 
         initData();
         return view;
@@ -80,6 +102,13 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 //            }
 //        });
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
     private void initRecycleView(List<AppInfo> datas){
         //为RecyclerView设置布局管理器
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -1,13 +1,11 @@
-package org.crazyit.myphoneassistant.ui.data;
+package org.crazyit.myphoneassistant.data;
 
-import org.crazyit.myphoneassistant.ui.bean.AppInfo;
-import org.crazyit.myphoneassistant.ui.bean.PageBean;
-import org.crazyit.myphoneassistant.ui.http.ApiService;
-import org.crazyit.myphoneassistant.ui.http.HttpManager;
+import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.bean.PageBean;
+import org.crazyit.myphoneassistant.data.http.ApiService;
+import org.crazyit.myphoneassistant.data.http.HttpManager;
 
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Administrator on 2018/6/9.
