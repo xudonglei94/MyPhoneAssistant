@@ -5,6 +5,8 @@ import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.data.RecommendModel;
 import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,23 +16,28 @@ import retrofit2.Response;
  */
 //负责与Model进行交互,要和View进行交互
     //Presenter是通过viewinterface和view来进行交互的
-public class RecommendPresenter implements RecommendContract.Presenter {
-    //首先它要引用View
-    //显示数据的人
-    private  RecommendContract.View mView;
+public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View>{
+//    //首先它要引用View
+//    //显示数据的人
+//    private  RecommendContract.View mView;
+//
+//    //通过这个Model来拿到数据
+//    //真正干活的人
+//    private RecommendModel mModel;
 
-    //通过这个Model来拿到数据
-    //真正干活的人
-    private RecommendModel mModel;
-
-    public  RecommendPresenter(RecommendContract.View view, RecommendModel model){
-        this.mView=view;
-        mModel=model;
-
-
+    @Inject
+    public RecommendPresenter(RecommendModel recommendModel, RecommendContract.View view) {
+        super(recommendModel, view);
     }
 
-    @Override
+//    public  RecommendPresenter(RecommendContract.View view, RecommendModel model){
+//        this.mView=view;
+//        mModel=model;
+//
+//
+//    }
+
+
     public void requestDatas() {
 
 

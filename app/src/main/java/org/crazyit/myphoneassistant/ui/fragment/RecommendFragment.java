@@ -18,9 +18,11 @@ import android.widget.Toast;
 import org.crazyit.myphoneassistant.AppApplication;
 import org.crazyit.myphoneassistant.R;
 
-import org.crazyit.myphoneassistant.di.component.DaggerAppComponent;
+import org.crazyit.myphoneassistant.di.component.AppComponent;
+
 import org.crazyit.myphoneassistant.di.component.DaggerRecommendComponent;
 import org.crazyit.myphoneassistant.di.module.RecommendModule;
+import org.crazyit.myphoneassistant.presenter.RecommendPresenter;
 import org.crazyit.myphoneassistant.ui.adapter.RecommendAppAdapter;
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
@@ -37,7 +39,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/6/7.
  */
 
-public class RecommendFragment extends Fragment implements RecommendContract.View {
+public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     private RecommendAppAdapter mAdatper;
@@ -46,74 +48,93 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     ProgressDialog mProgressDialog;
     //使用dragger2的步骤第一需要告诉dragger2我们需要这个对象
     //注意这里不能是private因为私有是没办法进行依赖的
-    @Inject
-    RecommendContract.Presenter mPresenter;
+//    @Inject
+//    RecommendContract.Presenter mPresenter;
 
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recommend, container, false);
-
-
-        ButterKnife.bind(this, view);
-
-//        DaggerRecommendComponent.builder()
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//
+//
+////        DaggerRecommendComponent.builder()
+////                .recommendModule(new RecommendModule(this)).build().inject(this);
+////        mProgressDialog=new ProgressDialog(getActivity());
+//        //Dagger2会给我们自动生成生成一个interface RecommendComponent的子类,我们可以看到它是实现了RecommendComponent这个接口的
+//        //注入的方法通过build
+//        //这个是复杂的方法我们在这里使用简单的额方法
+////        DaggerRecommendComponent.builder()
+////                .recommendMoudle(new RecommendModule()).build().inject(this);
+//
+//        //简单的写法是
+//        //这个方法需要在onActvityCreate里面去调用比较靠谱
+//        //DaggerRecommendComponent.create();
+//
+//        //其次这个地方需要删掉因为我们已经使用Dragger2了
+//        //mPresenter=new RecommendPresenter(this);
+//        //Dragger需要我们进行注入注入是不能省的,注入之前需要我们重新编译一下
+//        //通过build---rebuild来注入
+//
+//
+//        //特别是这句话经常需要用到因为我们的每一个APPComponent都要去依赖于这个appComponent,
+//        // 几乎只要是需要用到注入的地方都需要用到这句话
+//        //所以需要我们去写一个方法去返回这个东西的
+//        DaggerRecommendComponent.builder().appComponent(((AppApplication)getActivity().getApplication()).getAppComponent())
 //                .recommendModule(new RecommendModule(this)).build().inject(this);
-//        mProgressDialog=new ProgressDialog(getActivity());
-        //Dagger2会给我们自动生成生成一个interface RecommendComponent的子类,我们可以看到它是实现了RecommendComponent这个接口的
-        //注入的方法通过build
-        //这个是复杂的方法我们在这里使用简单的额方法
-//        DaggerRecommendComponent.builder()
-//                .recommendMoudle(new RecommendModule()).build().inject(this);
-
-        //简单的写法是
-        //这个方法需要在onActvityCreate里面去调用比较靠谱
-        //DaggerRecommendComponent.create();
-
-        //其次这个地方需要删掉因为我们已经使用Dragger2了
-        //mPresenter=new RecommendPresenter(this);
-        //Dragger需要我们进行注入注入是不能省的,注入之前需要我们重新编译一下
-        //通过build---rebuild来注入
-
-
-        DaggerRecommendComponent.builder().appComponent(((AppApplication)getActivity().getApplication()).getAppComponent())
-                .recommendModule(new RecommendModule(this)).build().inject(this);
-
-        initData();
-        return view;
-    }
-
-    private void initData() {
-
-        //告诉Presenter我需要去拿data
-        mPresenter.requestDatas();
-
-//        //通过retrofit来调用网络服务
-//        HttpManager  manager=new HttpManager();
-//        ApiService apiService=manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
 //
-//        apiService.getApps("{'page':0}").enqueue(new Callback<PageBean<AppInfo>>() {
-//            @Override
-//            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
-////                PageBean<AppInfo> pageBean=response.body();
-////                List<AppInfo> datas=pageBean.getDatas();
-//                initRecycleView(datas);
+//        initData();
+//        return view;
+//    }
+
+//    private void initData() {
 //
-//            }
+//        //告诉Presenter我需要去拿data
+//        mPresenter.requestDatas();
 //
-//            @Override
-//            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
-//                Log.d("RecommendFragment","没有获取到数据");
-////                Toast.makeText()
-//
-//            }
-//        });
-    }
+////        //通过retrofit来调用网络服务
+////        HttpManager  manager=new HttpManager();
+////        ApiService apiService=manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
+////
+////        apiService.getApps("{'page':0}").enqueue(new Callback<PageBean<AppInfo>>() {
+////            @Override
+////            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
+//////                PageBean<AppInfo> pageBean=response.body();
+//////                List<AppInfo> datas=pageBean.getDatas();
+////                initRecycleView(datas);
+////
+////            }
+////
+////            @Override
+////            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
+////                Log.d("RecommendFragment","没有获取到数据");
+//////                Toast.makeText()
+////
+////            }
+////        });
+//    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public int setLayout() {
+        return R.layout.fragment_recommend;
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+        DaggerRecommendComponent.builder().appComponent(appComponent)
+                .recommendModule(new RecommendModule(this)).build().inject(this);
+
+    }
+
+    @Override
+    public void init() {
+        //告诉Presenter我需要去拿data
+        mPresenter.requestDatas();
 
     }
 

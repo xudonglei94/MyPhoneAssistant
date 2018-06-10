@@ -15,12 +15,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.crazyit.myphoneassistant.R;
+import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.ui.adapter.ViewPageAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
@@ -38,11 +39,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
+
+
+
+    }
+
+    @Override
+    public int setLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
+    public void init() {
         initDrawerLayout();
         initTabLayout();
-
 
     }
 

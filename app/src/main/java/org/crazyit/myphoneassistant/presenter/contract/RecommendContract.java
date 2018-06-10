@@ -20,10 +20,10 @@ public interface RecommendContract {
         void showError(String msg);
 
     }
-    interface  Presenter extends BasePresenter{
-
-        public  void requestDatas();
-
-
-    }
+//    interface  Presenter extends BasePresenter{
+//
+//        public  void requestDatas();
+//
+//
+//    }
 }

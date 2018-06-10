@@ -29,13 +29,13 @@ public class RecommendModule {
     //这个方法以此来告诉dragger2是来提供实例的
     //Provide的作用是告诉dragger2这个方法是来提供实例的
     //这里其实是两种方法来初始化这个Present
-    @Provides
-    public RecommendContract.Presenter providePresenter(RecommendContract.View view,RecommendModel model){
-
-        //这个view是通过构造方式将它传递进来的
-        return  new RecommendPresenter(view,model);
-
-    }
+//    @Provides
+//    public RecommendContract.Presenter providePresenter(RecommendContract.View view,RecommendModel model){
+//
+//        //这个view是通过构造方式将它传递进来的
+//        return  new RecommendPresenter(view,model);
+//
+//    }
     @Provides
     public  RecommendContract.View provideView(){
         return  mView;
