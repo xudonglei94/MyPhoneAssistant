@@ -39,7 +39,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
-
     //retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
@@ -56,5 +55,8 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2' //指定注解处理器
     compile 'com.google.dagger:dagger:2.0.2'  //dagger公用api
     provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
+
+    //pathview
+    compile 'com.eftimoff:android-pathview:1.0.8@aar'
 
 }
