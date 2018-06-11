@@ -42,8 +42,8 @@ public class WelcomActivity extends AppCompatActivity {
 
     }
 
-    private void    jump() {
-        startActivity(new Intent(this,MainActivity.class));
+    private void  jump() {
+        startActivity(new Intent(this,GuideActivity.class));
         this.finish();
     }
 }
