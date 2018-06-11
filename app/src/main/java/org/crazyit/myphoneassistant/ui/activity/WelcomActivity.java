@@ -9,6 +9,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import com.eftimoff.androipathview.PathView;
 
 import org.crazyit.myphoneassistant.R;
+import org.crazyit.myphoneassistant.common.Constant;
+import org.crazyit.myphoneassistant.common.util.ACache;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +45,17 @@ public class WelcomActivity extends AppCompatActivity {
     }
 
     private void  jump() {
-        startActivity(new Intent(this,GuideActivity.class));
+
+        String isShowGuide= ACache.get(this).getAsString(Constant.IS_SHOW_GUIDE);
+
+        //第一次启动进入引导页面
+        if (null==isShowGuide){
+            startActivity(new Intent(this,GuideActivity.class));
+        }else
+        {
+            startActivity(new Intent(this,MainActivity.class));
+        }
+//        startActivity(new Intent(this,GuideActivity.class));
         this.finish();
     }
 }

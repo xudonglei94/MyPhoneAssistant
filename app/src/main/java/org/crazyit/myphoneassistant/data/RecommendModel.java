@@ -6,6 +6,7 @@ import org.crazyit.myphoneassistant.data.http.ApiService;
 
 
 import retrofit2.Callback;
+import rx.Observable;
 
 /**
  * Created by Administrator on 2018/6/9.
@@ -19,10 +20,12 @@ public class RecommendModel {
         this.mApiServcie = mApiServcie;
     }
 
-    public void   getApps(Callback<PageBean<AppInfo>> callback){
+    public Observable<PageBean<AppInfo>> getApps(/*Callback<PageBean<AppInfo>> callback*/){
 //        HttpManager manager=new HttpManager();
 //        ApiService apiService=manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
-        mApiServcie.getApps("{'page':0}").enqueue(callback);
+
+//        mApiServcie.getApps("{'page':0}").enqueue(callback);
+        return  mApiServcie.getApps("{'page':0}");
 
     }
 }

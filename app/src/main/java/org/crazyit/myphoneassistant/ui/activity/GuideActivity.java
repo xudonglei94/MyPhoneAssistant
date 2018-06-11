@@ -7,10 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import org.crazyit.myphoneassistant.R;
+import org.crazyit.myphoneassistant.common.Constant;
+import org.crazyit.myphoneassistant.common.util.ACache;
 import org.crazyit.myphoneassistant.ui.adapter.GuideFragmentAdapter;
 import org.crazyit.myphoneassistant.ui.fragment.GuideFragment;
 import org.crazyit.myphoneassistant.ui.widget.CircleIndicator;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 //如果说你的Activity不是特别复杂的话那么你不要继承BaseActivity
 public class GuideActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
@@ -50,13 +52,13 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         //其实做这个很简单只需要一个viewPage嵌到Fragment里面就可以了
 
         initData();
-        btnEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(GuideActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnEnter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(GuideActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void initData() {
@@ -78,7 +80,6 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 //        viewpager.setPageTransformer(); //这个方法是添加动画
 
         indicator.setViewPager(viewpager);
-
 
 
     }
@@ -103,7 +104,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 //            imgIcon3.setImageResource(R.color.color_w);
 //
 //        }
-        btnEnter.setVisibility((position==mAdapter.getCount()-1)? View.VISIBLE:View.GONE);
+        btnEnter.setVisibility((position == mAdapter.getCount() - 1) ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -114,5 +115,12 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @OnClick(R.id.btn_enter)
+    public void onViewClicked() {
+        ACache.get(this).put(Constant.IS_SHOW_GUIDE,"0");
+        startActivity(new Intent(this,MainActivity.class));
+        this.finish();
     }
 }
