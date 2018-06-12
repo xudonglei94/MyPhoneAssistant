@@ -1,5 +1,6 @@
 package org.crazyit.myphoneassistant.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import org.crazyit.myphoneassistant.AppApplication;
 import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.presenter.BasePresenter;
+import org.crazyit.myphoneassistant.ui.BaseView;
 
 import javax.inject.Inject;
 
@@ -22,7 +24,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2018/6/10.
  */
 
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
 
     private Unbinder mUnbinder;
 
@@ -33,6 +35,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     T mPresenter;
 
     private View mRootView;
+    private ProgressDialog mProgressDialog;
 
     @Nullable
     @Override
@@ -67,4 +70,21 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public abstract void setupActivityComponent(AppComponent appComponent);
     //fragment后面都有这个方法我们可以把这个方法抽出来放到我们的父类里面
     public  abstract void init();
+
+    @Override
+    public void showLoading() {
+        mProgressDialog=new ProgressDialog(getActivity());
+        mProgressDialog.setMessage("loading.......");
+
+        mProgressDialog.show();
+
+    }
+
+    @Override
+    public void dimissLoading() {
+        if (mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
+        }
+
+    }
 }

@@ -1,5 +1,9 @@
 package org.crazyit.myphoneassistant.di.module;
 
+import android.app.Application;
+
+import org.crazyit.myphoneassistant.AppApplication;
+import org.crazyit.myphoneassistant.common.rx.subscriber.RxErrorHandler;
 import org.crazyit.myphoneassistant.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -61,5 +65,10 @@ public class HttpModule {
     @Singleton
     public  ApiService provideApiService(Retrofit retrofit){
         return  retrofit.create(ApiService.class);
+    }
+    @Provides
+    @Singleton
+    public RxErrorHandler provideErrorHandler(Application application){
+        return  new RxErrorHandler(application);
     }
 }

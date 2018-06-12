@@ -1,6 +1,7 @@
 package org.crazyit.myphoneassistant.data.http;
 
 import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.bean.BaseBean;
 import org.crazyit.myphoneassistant.bean.PageBean;
 
 
@@ -28,8 +29,10 @@ public interface ApiService {
 
 
     //用到rxjava的情况下的时候
-    @GET("featured")
-    public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
+//    @GET("featured2")
+//    public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
+    @GET("featured2")
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
 
 
 }

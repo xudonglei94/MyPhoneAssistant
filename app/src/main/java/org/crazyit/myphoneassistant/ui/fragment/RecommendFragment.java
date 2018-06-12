@@ -113,11 +113,11 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 ////        });
 //    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//    }
 
     @Override
     public int setLayout() {
@@ -167,6 +167,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public void showResult(List<AppInfo> datas) {
+        Toast.makeText(getActivity(),"小豆子好",Toast.LENGTH_LONG).show();
         initRecycleView(datas);
 
     }

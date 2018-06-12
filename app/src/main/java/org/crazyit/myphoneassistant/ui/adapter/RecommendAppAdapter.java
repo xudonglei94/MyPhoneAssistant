@@ -65,7 +65,8 @@ public class RecommendAppAdapter extends RecyclerView.Adapter<RecommendAppAdapte
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mDatas==null?0:mDatas.size();
+//        return mDatas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
