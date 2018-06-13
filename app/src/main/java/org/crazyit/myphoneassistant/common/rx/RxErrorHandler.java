@@ -1,4 +1,4 @@
-package org.crazyit.myphoneassistant.common.rx.subscriber;
+package org.crazyit.myphoneassistant.common.rx;
 
 import android.content.Context;
 import android.widget.Toast;

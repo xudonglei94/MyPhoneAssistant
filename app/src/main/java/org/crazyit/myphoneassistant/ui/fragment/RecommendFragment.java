@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/6/7.
  */
 
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     private RecommendAppAdapter mAdatper;
@@ -132,6 +132,11 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     }
 
     @Override
+    public void onEmptyViewClick() {
+        mPresenter.requestDatas();
+    }
+
+    @Override
     public void init() {
         //告诉Presenter我需要去拿data
         mPresenter.requestDatas();
@@ -152,20 +157,6 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
 
     @Override
-    public void showLoading() {
-        mProgressDialog.show();
-
-    }
-
-    @Override
-    public void dimissLoading() {
-        if (mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
-        }
-
-    }
-
-    @Override
     public void showResult(List<AppInfo> datas) {
         Toast.makeText(getActivity(),"小豆子好",Toast.LENGTH_LONG).show();
         initRecycleView(datas);
@@ -183,4 +174,15 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
         Toast.makeText(getActivity(),"服务器开小差了"+msg,Toast.LENGTH_SHORT).show();
 
     }
+//    @Override
+//    public void onRequestPermissonSuccess() {
+//
+//        mPresenter.requestDatas();
+//    }
+//
+//    @Override
+//    public void onRequestPermissonError() {
+//
+//        Toast.makeText(getActivity(),"你已拒绝授权",Toast.LENGTH_LONG).show();
+//    }
 }

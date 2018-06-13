@@ -4,7 +4,7 @@
     package="org.crazyit.myphoneassistant">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <!--tools:replace="android:icon"-->
     <application

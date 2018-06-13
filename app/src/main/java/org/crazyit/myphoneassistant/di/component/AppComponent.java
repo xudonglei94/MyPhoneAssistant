@@ -2,7 +2,7 @@ package org.crazyit.myphoneassistant.di.component;
 
 import android.app.Application;
 
-import org.crazyit.myphoneassistant.common.rx.subscriber.RxErrorHandler;
+import org.crazyit.myphoneassistant.common.rx.RxErrorHandler;
 import org.crazyit.myphoneassistant.data.http.ApiService;
 import org.crazyit.myphoneassistant.di.module.AppModule;
 import org.crazyit.myphoneassistant.di.module.HttpModule;

@@ -3,16 +3,8 @@ package org.crazyit.myphoneassistant.common.rx.subscriber;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.JsonParseException;
-
-import org.crazyit.myphoneassistant.common.exception.ApiException;
 import org.crazyit.myphoneassistant.common.exception.BaseException;
-import org.crazyit.myphoneassistant.common.exception.ErrorMessageFactory;
-
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-
-import retrofit2.adapter.rxjava.HttpException;
+import org.crazyit.myphoneassistant.common.rx.RxErrorHandler;
 
 /**
  * Created by Administrator on 2018/6/11.

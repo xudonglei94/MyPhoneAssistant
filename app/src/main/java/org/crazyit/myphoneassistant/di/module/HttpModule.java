@@ -2,8 +2,7 @@ package org.crazyit.myphoneassistant.di.module;
 
 import android.app.Application;
 
-import org.crazyit.myphoneassistant.AppApplication;
-import org.crazyit.myphoneassistant.common.rx.subscriber.RxErrorHandler;
+import org.crazyit.myphoneassistant.common.rx.RxErrorHandler;
 import org.crazyit.myphoneassistant.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
