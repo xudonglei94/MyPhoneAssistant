@@ -2,6 +2,9 @@ package org.crazyit.myphoneassistant.di.module;
 
 import android.app.Application;
 
+import com.google.gson.Gson;
+
+import org.crazyit.myphoneassistant.common.http.CommonParamsInterceptor;
 import org.crazyit.myphoneassistant.common.rx.RxErrorHandler;
 import org.crazyit.myphoneassistant.data.http.ApiService;
 
@@ -25,7 +28,7 @@ public class HttpModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient(){
+    public OkHttpClient provideOkHttpClient(Application application,Gson gson){
         //log拦截器
         HttpLoggingInterceptor logging=new HttpLoggingInterceptor();
         //开发模式记录整个body,否则只记录基本信息如返回200,http协议版本等等.
@@ -35,8 +38,8 @@ public class HttpModule {
         return new OkHttpClient.Builder()
                 //HeadInterceptor实现了Interceptor,用来向Request Header添加一些业务相关的数据,
                 //如App版本,token信息
-                // .addInterceptor(new HeadInterceptor)
-                .addInterceptor(logging)
+                 .addInterceptor(logging)
+                .addInterceptor(new CommonParamsInterceptor(application,gson))
                 //连接超时时间设置
                 .connectTimeout(10, TimeUnit.SECONDS)
                 //读取超时时间设置

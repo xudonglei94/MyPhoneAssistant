@@ -3,11 +3,15 @@ package org.crazyit.myphoneassistant.data.http;
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.bean.BaseBean;
 import org.crazyit.myphoneassistant.bean.PageBean;
-
+import org.crazyit.myphoneassistant.bean.requestbean.LoginRequestBean;
 
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -33,6 +37,21 @@ public interface ApiService {
 //    public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
     @GET("featured2")
     public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
+
+    @GET("index")
+    public Observable<BaseBean<AppInfo>> index();
+    @GET("toplist")
+    public Observable<BaseBean<AppInfo>> topList(@Query("page") int page);//{"page":0}
+
+
+
+    //{"phone":"","password":""}
+    @POST("login")
+    public  Observable<BaseBean> login(@Body LoginRequestBean bean );
+
+    @FormUrlEncoded // FormBody
+    @POST("login")
+    public   void login2(@Field("phone") String phone);
 
 
 }
