@@ -15,6 +15,7 @@ import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
@@ -38,6 +39,21 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
         super(recommendModel, view);
 //        this.mRxErrorHandler=errorHandler;
     }
+
+//    public  void requestPermission(){
+//        RxPermissions rxPermissions=new RxPermissions((Activity) mContext);
+//        rxPermissions.request(Manifest.permission.READ_PHONE_STATE).subscribe(new Action1<Boolean>() {
+//            @Override
+//            public void call(Boolean aBoolean) {
+//                if (aBoolean){
+//                     mView.onRequestPermissonSuccess();
+//
+//                }else{
+//                    mView.onRequestPermissonError();
+//                }
+//            }
+//        });
+//    }
 
 //    public  RecommendPresenter(RecommendContract.View view, RecommendModel model){
 //        this.mView=view;
@@ -139,21 +155,25 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
 //
 //            }
 //        });
+
 public void requestDatas() {
+        //采用rxjava的方式来请求权限
 
 
+    //先判断它是否授权如果授权成功了那么再去调用这个方法
     RxPermissions rxPermissions = new RxPermissions((Activity) mContext);
 
     rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
+            // 将这个Boolean值转换成这个Observable<PageBean<AppInfo>>>对象
+            //相当于将request返回的结果值Boolean装换成了Observable<PageBean<AppInfo>>>对象
             .flatMap(new Func1<Boolean, Observable<PageBean<AppInfo>>>() {
                 @Override
-                public Observable<PageBean<AppInfo>>call(Boolean aBoolean) {
+                public Observable<PageBean<AppInfo>> call(Boolean aBoolean) {
 
-                    if(aBoolean){
+                    if (aBoolean) {
 
-                        return  mModel.getApps().compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult());
-                    }
-                    else{
+                        return mModel.getApps().compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult());
+                    } else {
 
                         return Observable.empty();
                     }
@@ -161,13 +181,13 @@ public void requestDatas() {
 
                 }
             })
-            .subscribe(new ProgressSubcriber<PageBean<AppInfo>>(mContext,mView) {
+            .subscribe(new ProgressSubcriber<PageBean<AppInfo>>(mContext, mView) {
                 @Override
                 public void onNext(PageBean<AppInfo> appInfoPageBean) {
                     mView.showResult(appInfoPageBean.getDatas());
                 }
             });
-    }
+}
 
     }
 

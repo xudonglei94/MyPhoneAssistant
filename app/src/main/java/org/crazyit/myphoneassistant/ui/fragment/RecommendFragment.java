@@ -138,8 +138,9 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     @Override
     public void init() {
-        //告诉Presenter我需要去拿data
+//        //告诉Presenter我需要去拿data
         mPresenter.requestDatas();
+//        mPresenter.requestPermission();
 
     }
 
@@ -169,9 +170,21 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     }
 
+//    @Override
+//    public void showError(String msg) {
+//        Toast.makeText(getActivity(),"服务器开小差了"+msg,Toast.LENGTH_SHORT).show();
+//
+//    }
+
     @Override
-    public void showError(String msg) {
-        Toast.makeText(getActivity(),"服务器开小差了"+msg,Toast.LENGTH_SHORT).show();
+    public void onRequestPermissonSuccess() {
+        mPresenter.requestDatas();
+
+    }
+
+    @Override
+    public void onRequestPermissonError() {
+        Toast.makeText(getActivity(), "您已经拒绝授权", Toast.LENGTH_SHORT).show();
 
     }
 //    @Override
