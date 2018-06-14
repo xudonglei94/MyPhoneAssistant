@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+
 import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.bean.Banner;
 import org.crazyit.myphoneassistant.bean.IndexBean;
@@ -85,14 +88,15 @@ public class IndexMultipleAdapter extends RecyclerView.Adapter<RecyclerView.View
             return new NavIconViewHolder(mLayoutInflater.inflate(R.layout.template_nav_icon, parent, false));
 
         }
-//        else if(viewType==TYPE_APPS){
-//
-//            return  new AppViewHolder(mLayoutInflater.inflate(R.layout.template_recycleview_with_titile, null, false),TYPE_APPS);
-//        }
-//        else if(viewType==TYPE_GAMES){
-//
-//            return  new AppViewHolder(mLayoutInflater.inflate(R.layout.template_recycleview_with_titile, null, false),TYPE_GAMES);
-//        }
+        else if(viewType==TYPE_APPS){
+
+            //不把viewgroup传进来就会重新去计算高度,不然将导致数据显示不完整
+            return  new AppViewHolder(mLayoutInflater.inflate(R.layout.template_recycleview_with_titile, null, false),TYPE_APPS);
+        }
+        else if(viewType==TYPE_GAMES){
+
+            return  new AppViewHolder(mLayoutInflater.inflate(R.layout.template_recycleview_with_titile, null, false),TYPE_GAMES);
+        }
 
 
         return null;
@@ -134,40 +138,40 @@ public class IndexMultipleAdapter extends RecyclerView.Adapter<RecyclerView.View
             bannerViewHolder.mLayoutHotSubject.setOnClickListener(this);
 
         }
-//        else {
-//            AppViewHolder viewHolder = (AppViewHolder) holder;
-//
-//
-//
-//            AppInfoAdapter appInfoAdapter =  AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
-//
-//            if(viewHolder.type==TYPE_APPS){
-//                viewHolder.mText.setText("热门应用");
-//                appInfoAdapter.addData(mIndexBean.getRecommendApps());
-//            }
-//            else{
-//                viewHolder.mText.setText("热门游戏");
-//                appInfoAdapter.addData(mIndexBean.getRecommendGames());
-//            }
-//
-//            viewHolder.mRecyclerView.setAdapter(appInfoAdapter);
-//
-//            viewHolder.mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-//                @Override
-//                public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//                }
-//            });
-//
-//
-//
-//        }
+        else {
+            AppViewHolder viewHolder = (AppViewHolder) holder;
+
+
+
+            AppInfoAdapter appInfoAdapter =  AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
+
+            if(viewHolder.type==TYPE_APPS){
+                viewHolder.mText.setText("热门应用");
+                appInfoAdapter.addData(mIndexBean.getRecommendApps());
+            }
+            else{
+                viewHolder.mText.setText("热门游戏");
+                appInfoAdapter.addData(mIndexBean.getRecommendGames());
+            }
+
+            viewHolder.mRecyclerView.setAdapter(appInfoAdapter);
+
+            viewHolder.mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+                @Override
+                public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                }
+            });
+
+
+
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 4;
     }
 
     @Override
