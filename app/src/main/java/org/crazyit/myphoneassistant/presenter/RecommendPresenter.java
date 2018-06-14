@@ -1,43 +1,32 @@
 package org.crazyit.myphoneassistant.presenter;
 
-import android.Manifest;
-import android.app.Activity;
-
-import com.tbruyelle.rxpermissions.RxPermissions;
-
-import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.bean.IndexBean;
-import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.common.rx.RxHttpResponseCompat;
 import org.crazyit.myphoneassistant.common.rx.subscriber.ProgressSubcriber;
-import org.crazyit.myphoneassistant.data.RecommendModel;
-import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
+import org.crazyit.myphoneassistant.data.AppInfoModel;
+import org.crazyit.myphoneassistant.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
-
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by Administrator on 2018/6/9.
  */
 //负责与Model进行交互,要和View进行交互
     //Presenter是通过viewinterface和view来进行交互的
-public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View>{
+public class RecommendPresenter extends BasePresenter<AppInfoModel,AppInfoContract.View>{
 //    //首先它要引用View
 //    //显示数据的人
-//    private  RecommendContract.View mView;
+//    private  AppInfoContract.View mView;
 //
 //    //通过这个Model来拿到数据
 //    //真正干活的人
-//    private RecommendModel mModel;
+//    private AppInfoModel mModel;
 
 //    private RxErrorHandler mRxErrorHandler;
 
     @Inject
-    public RecommendPresenter(RecommendModel recommendModel, RecommendContract.View view/*, RxErrorHandler errorHandler*/) {
-        super(recommendModel, view);
+    public RecommendPresenter(AppInfoModel appInfoModel, AppInfoContract.View view/*, RxErrorHandler errorHandler*/) {
+        super(appInfoModel, view);
 //        this.mRxErrorHandler=errorHandler;
     }
 
@@ -56,7 +45,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
 //        });
 //    }
 
-//    public  RecommendPresenter(RecommendContract.View view, RecommendModel model){
+//    public  RecommendPresenter(AppInfoContract.View view, AppInfoModel model){
 //        this.mView=view;
 //        mModel=model;
 //

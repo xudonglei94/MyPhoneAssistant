@@ -2,6 +2,7 @@ package org.crazyit.myphoneassistant.presenter.contract;
 
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.bean.IndexBean;
+import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.ui.BaseView;
 import org.crazyit.myphoneassistant.presenter.BasePresenter;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by Administrator on 2018/6/9.
  */
 
-public interface RecommendContract {
+public interface AppInfoContract {
 
     interface View extends BaseView{
 
@@ -22,6 +23,14 @@ public interface RecommendContract {
 
         void onRequestPermissonSuccess();
         void onRequestPermissonError();
+
+    }
+
+    interface TopListView extends BaseView{
+        void showResult(PageBean<AppInfo> page);
+
+        void onLoadMoreComplete();
+
 
     }
 //    interface  Presenter extends BasePresenter{

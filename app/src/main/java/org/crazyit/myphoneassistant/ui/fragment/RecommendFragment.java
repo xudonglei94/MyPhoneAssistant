@@ -1,21 +1,11 @@
 package org.crazyit.myphoneassistant.ui.fragment;
 
-import android.app.Application;
 import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import org.crazyit.myphoneassistant.AppApplication;
 import org.crazyit.myphoneassistant.R;
 
 import org.crazyit.myphoneassistant.bean.IndexBean;
@@ -24,24 +14,19 @@ import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.di.component.DaggerRecommendComponent;
 import org.crazyit.myphoneassistant.di.module.RecommendModule;
 import org.crazyit.myphoneassistant.presenter.RecommendPresenter;
+import org.crazyit.myphoneassistant.presenter.contract.AppInfoContract;
 import org.crazyit.myphoneassistant.ui.adapter.IndexMultipleAdapter;
-import org.crazyit.myphoneassistant.ui.adapter.RecommendAppAdapter;
-import org.crazyit.myphoneassistant.bean.AppInfo;
-import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
  * Created by Administrator on 2018/6/7.
  */
 
-public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements AppInfoContract.View {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     private IndexMultipleAdapter mAdatper;
@@ -51,7 +36,7 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
     //使用dragger2的步骤第一需要告诉dragger2我们需要这个对象
     //注意这里不能是private因为私有是没办法进行依赖的
 //    @Inject
-//    RecommendContract.Presenter mPresenter;
+//    AppInfoContract.Presenter mPresenter;
 
 
 //    @Nullable
@@ -123,7 +108,7 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     @Override
     public int setLayout() {
-        return R.layout.fragment_recommend;
+        return R.layout.template_recycler_view;
     }
 
     @Override

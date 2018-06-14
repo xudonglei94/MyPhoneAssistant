@@ -42,7 +42,7 @@ public interface ApiService {
     @GET("index")
     public Observable<BaseBean<IndexBean>> index();
     @GET("toplist")
-    public Observable<BaseBean<AppInfo>> topList(@Query("page") int page);//{"page":0}
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);//{"page":0}
 
     @GET("game")
     public  Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);

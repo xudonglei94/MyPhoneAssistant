@@ -22,14 +22,13 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder> {
 
     String baseImgUrl ="http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
 
-
     private Builder mBuilder;
-
+    //建造者模式这里要改成build
     private AppInfoAdapter(Builder builder) {
         super(R.layout.template_appinfo);
-
         this.mBuilder = builder;
 
+        //开启动画
         openLoadAnimation();
     }
 
@@ -48,7 +47,9 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder> {
 
 
         TextView txtViewPosition = helper.getView(R.id.txt_position);
+        //根据build的值来决定是否显示
         txtViewPosition.setVisibility(mBuilder.isShowPosition? View.VISIBLE:View.GONE);
+        //+1在作用在于排序从1开始不然会从0开始
         txtViewPosition.setText(item.getPosition()+1 +". ");
 
         TextView txtViewCategory = helper.getView(R.id.txt_category);
@@ -68,22 +69,18 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder> {
 
 
 
+    //建造者模式
     public static class  Builder{
 
-
-
-
+        //是否显示位置
         private boolean isShowPosition;
+        //是否显示名字
         private boolean isShowCategoryName;
+        //是否显示简介
         private boolean isShowBrief;
 
 
-
-
-
-
         public Builder showPosition(boolean  b){
-
             this.isShowPosition =b;
             return this;
         }
@@ -102,6 +99,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder> {
             return this;
         }
 
+        //因为用建造者模式改成了私有的所以我们要新建一个方法
         public AppInfoAdapter build(){
 
 
