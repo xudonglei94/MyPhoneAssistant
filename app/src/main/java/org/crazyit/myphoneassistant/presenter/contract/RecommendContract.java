@@ -1,6 +1,7 @@
 package org.crazyit.myphoneassistant.presenter.contract;
 
 import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.bean.IndexBean;
 import org.crazyit.myphoneassistant.ui.BaseView;
 import org.crazyit.myphoneassistant.presenter.BasePresenter;
 
@@ -15,9 +16,9 @@ public interface RecommendContract {
     interface View extends BaseView{
 
 
-        void showResult(List<AppInfo> datas);
-        void showNodata();
-        void showError(String msg);
+        void showResult(IndexBean indexBean);
+//        void showNodata();
+//        void showError(String msg);
 
         void onRequestPermissonSuccess();
         void onRequestPermissonError();

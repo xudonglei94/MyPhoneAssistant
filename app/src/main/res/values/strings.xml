@@ -21,4 +21,7 @@
     <string name="error_socket_unreachable">网络不可用</string>
     <string name="loading">加载中...</string>
     <string name="empty_data">暂无数据</string>
+    <string name="hot_game">热门游戏</string>
+    <string name="hot_top">热门主题</string>
+    <string name="hot_app">热门应用</string>
 </resources>

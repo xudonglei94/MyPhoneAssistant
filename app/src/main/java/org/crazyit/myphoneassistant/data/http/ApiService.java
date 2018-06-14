@@ -2,6 +2,7 @@ package org.crazyit.myphoneassistant.data.http;
 
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.bean.BaseBean;
+import org.crazyit.myphoneassistant.bean.IndexBean;
 import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.bean.requestbean.LoginRequestBean;
 
@@ -39,19 +40,22 @@ public interface ApiService {
     public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
 
     @GET("index")
-    public Observable<BaseBean<AppInfo>> index();
+    public Observable<BaseBean<IndexBean>> index();
     @GET("toplist")
     public Observable<BaseBean<AppInfo>> topList(@Query("page") int page);//{"page":0}
 
+    @GET("game")
+    public  Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);
 
 
-    //{"phone":"","password":""}
-    @POST("login")
-    public  Observable<BaseBean> login(@Body LoginRequestBean bean );
 
-    @FormUrlEncoded // FormBody
-    @POST("login")
-    public   void login2(@Field("phone") String phone);
+//    //{"phone":"","password":""}
+//    @POST("login")
+//    public  Observable<BaseBean> login(@Body LoginRequestBean bean );
+//
+//    @FormUrlEncoded // FormBody
+//    @POST("login")
+//    public   void login2(@Field("phone") String phone);
 
 
 }

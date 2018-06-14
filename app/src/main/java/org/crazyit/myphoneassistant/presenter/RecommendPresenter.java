@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.crazyit.myphoneassistant.bean.AppInfo;
+import org.crazyit.myphoneassistant.bean.IndexBean;
 import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.common.rx.RxHttpResponseCompat;
 import org.crazyit.myphoneassistant.common.rx.subscriber.ProgressSubcriber;
@@ -157,34 +158,42 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
 //        });
 
 public void requestDatas() {
-        //采用rxjava的方式来请求权限
+//        //采用rxjava的方式来请求权限
+//
+//
+//    //先判断它是否授权如果授权成功了那么再去调用这个方法
+//    RxPermissions rxPermissions = new RxPermissions((Activity) mContext);
+//
+//    rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
+//            // 将这个Boolean值转换成这个Observable<PageBean<AppInfo>>>对象
+//            //相当于将request返回的结果值Boolean装换成了Observable<PageBean<AppInfo>>>对象
+//            .flatMap(new Func1<Boolean, Observable<PageBean<AppInfo>>>() {
+//                @Override
+//                public Observable<PageBean<AppInfo>> call(Boolean aBoolean) {
+//
+//                    if (aBoolean) {
+//
+//                        return mModel.getApps().compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult());
+//                    } else {
+//
+//                        return Observable.empty();
+//                    }
+//
+//
+//                }
+//            })
+//            .subscribe(new ProgressSubcriber<PageBean<AppInfo>>(mContext, mView) {
+//                @Override
+//                public void onNext(PageBean<AppInfo> appInfoPageBean) {
+//                    mView.showResult(appInfoPageBean.getDatas());
+//                }
+//            });
 
-
-    //先判断它是否授权如果授权成功了那么再去调用这个方法
-    RxPermissions rxPermissions = new RxPermissions((Activity) mContext);
-
-    rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
-            // 将这个Boolean值转换成这个Observable<PageBean<AppInfo>>>对象
-            //相当于将request返回的结果值Boolean装换成了Observable<PageBean<AppInfo>>>对象
-            .flatMap(new Func1<Boolean, Observable<PageBean<AppInfo>>>() {
+    mModel.index().compose(RxHttpResponseCompat.<IndexBean>compatResult())
+            .subscribe(new ProgressSubcriber<IndexBean>(mContext,mView) {
                 @Override
-                public Observable<PageBean<AppInfo>> call(Boolean aBoolean) {
-
-                    if (aBoolean) {
-
-                        return mModel.getApps().compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult());
-                    } else {
-
-                        return Observable.empty();
-                    }
-
-
-                }
-            })
-            .subscribe(new ProgressSubcriber<PageBean<AppInfo>>(mContext, mView) {
-                @Override
-                public void onNext(PageBean<AppInfo> appInfoPageBean) {
-                    mView.showResult(appInfoPageBean.getDatas());
+                public void onNext(IndexBean indexBean) {
+                    mView.showResult(indexBean);
                 }
             });
 }

@@ -2,6 +2,7 @@ package org.crazyit.myphoneassistant.data;
 
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.bean.BaseBean;
+import org.crazyit.myphoneassistant.bean.IndexBean;
 import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.data.http.ApiService;
 
@@ -21,13 +22,13 @@ public class RecommendModel {
         this.mApiService = mApiServcie;
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps(/*Callback<PageBean<AppInfo>> callback*/){
-//        HttpManager manager=new HttpManager();
-//        ApiService apiService=manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps(){
 
-//        mApiServcie.getApps("{'page':0}").enqueue(callback);
-//        return  mApiServcie.getApps("{'page':0}");
         return  mApiService.getApps("{'page':0}");
+
+    }
+    public Observable<BaseBean<IndexBean>> index(){
+        return  mApiService.index();
 
     }
 }

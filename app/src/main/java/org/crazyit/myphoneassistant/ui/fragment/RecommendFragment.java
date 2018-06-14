@@ -18,11 +18,13 @@ import android.widget.Toast;
 import org.crazyit.myphoneassistant.AppApplication;
 import org.crazyit.myphoneassistant.R;
 
+import org.crazyit.myphoneassistant.bean.IndexBean;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
 
 import org.crazyit.myphoneassistant.di.component.DaggerRecommendComponent;
 import org.crazyit.myphoneassistant.di.module.RecommendModule;
 import org.crazyit.myphoneassistant.presenter.RecommendPresenter;
+import org.crazyit.myphoneassistant.ui.adapter.IndexMultipleAdapter;
 import org.crazyit.myphoneassistant.ui.adapter.RecommendAppAdapter;
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.presenter.contract.RecommendContract;
@@ -42,7 +44,7 @@ import butterknife.ButterKnife;
 public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
-    private RecommendAppAdapter mAdatper;
+    private IndexMultipleAdapter mAdatper;
 
     @Inject
     ProgressDialog mProgressDialog;
@@ -138,37 +140,45 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     @Override
     public void init() {
+        initRecycleView();
 //        //告诉Presenter我需要去拿data
         mPresenter.requestDatas();
 //        mPresenter.requestPermission();
 
     }
 
-    private void initRecycleView(List<AppInfo> datas){
+    private void initRecycleView(){
         //为RecyclerView设置布局管理器
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycleView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL));
+        //设置分割线
+//        recycleView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL));
         //设置动画
         recycleView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdatper=new RecommendAppAdapter(getActivity(),datas);
+
+
+
+    }
+
+    @Override
+    public void showResult(IndexBean indexBean) {
+        mAdatper=new IndexMultipleAdapter(getActivity());
+        mAdatper.setData(indexBean);
+
         recycleView.setAdapter(mAdatper);
-
     }
+    //    @Override
+//    public void showResult(List<AppInfo> datas) {
+//        Toast.makeText(getActivity(),"小豆子好",Toast.LENGTH_LONG).show();
+//        initRecycleView(datas);
+//
+//    }
 
-
-    @Override
-    public void showResult(List<AppInfo> datas) {
-        Toast.makeText(getActivity(),"小豆子好",Toast.LENGTH_LONG).show();
-        initRecycleView(datas);
-
-    }
-
-    @Override
-    public void showNodata() {
-        Toast.makeText(getActivity(),"暂时无数据,请吃完饭再来",Toast.LENGTH_SHORT).show();
-
-    }
+//    @Override
+//    public void showNodata() {
+//        Toast.makeText(getActivity(),"暂时无数据,请吃完饭再来",Toast.LENGTH_SHORT).show();
+//
+//    }
 
 //    @Override
 //    public void showError(String msg) {

@@ -18,7 +18,7 @@
         <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
 
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.WelcomActivity"
             android:theme="@style/AppTheme.Notitle.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,10 @@
         <activity
             android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppTheme.Notitle.FullScreen" />
-        <activity android:name=".ui.activity.WelcomActivity"></activity>
+        <activity android:name=".ui.activity.MainActivity"></activity>
+        <meta-data
+            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule"/>
 
     </application>
 
