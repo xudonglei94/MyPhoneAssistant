@@ -9,16 +9,35 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.crazyit.myphoneassistant.R;
+import org.crazyit.myphoneassistant.di.component.AppComponent;
+
+import org.crazyit.myphoneassistant.di.component.DaggerAppInfoComponent;
+import org.crazyit.myphoneassistant.di.module.AppInfoModule;
+import org.crazyit.myphoneassistant.presenter.AppInfoPresenter;
+import org.crazyit.myphoneassistant.ui.adapter.AppInfoAdapter;
 
 /**
  * Created by Administrator on 2018/6/7.
  */
 
-public class GamesFragment extends Fragment {
-    @Nullable
+public class GamesFragment extends BaseAppInfoFragment {
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_games,container,false);
-        return view;
+    public void setupActivityComponent(AppComponent appComponent) {
+        DaggerAppInfoComponent.builder().appComponent(appComponent).appInfoModule(new AppInfoModule(this))
+                .build().injectGamesFragment(this);
+
+
+    }
+
+    @Override
+    int type() {
+        return AppInfoPresenter.GAME;
+    }
+
+    @Override
+    AppInfoAdapter buildAdapter() {
+        return AppInfoAdapter.builder().showPosition(false).showBrief(true).showCategoryName(true).build();
     }
 }

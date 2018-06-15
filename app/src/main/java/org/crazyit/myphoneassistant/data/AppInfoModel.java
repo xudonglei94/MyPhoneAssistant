@@ -22,16 +22,19 @@ public class AppInfoModel {
         this.mApiService = mApiServcie;
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps(){
-
-        return  mApiService.getApps("{'page':0}");
-
-    }
+//    public Observable<BaseBean<PageBean<AppInfo>>> getApps(){
+//
+//        return  mApiService.getApps("{'page':0}");
+//
+//    }
     public Observable<BaseBean<IndexBean>> index(){
         return  mApiService.index();
 
     }
     public Observable<BaseBean<PageBean<AppInfo>>> topList(int page){
         return mApiService.topList(page);
+    }
+    public Observable<BaseBean<PageBean<AppInfo>>> games(int page){
+        return mApiService.games(page);
     }
 }

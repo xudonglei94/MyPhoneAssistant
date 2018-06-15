@@ -2,9 +2,11 @@ package org.crazyit.myphoneassistant.di.module;
 
 import android.app.ProgressDialog;
 
+import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.data.AppInfoModel;
 import org.crazyit.myphoneassistant.data.http.ApiService;
 import org.crazyit.myphoneassistant.presenter.contract.AppInfoContract;
+import org.crazyit.myphoneassistant.ui.adapter.AppInfoAdapter;
 import org.crazyit.myphoneassistant.ui.fragment.RecommendFragment;
 
 import dagger.Module;
@@ -16,12 +18,12 @@ import dagger.Provides;
 //这里面的工作全部都是用来new东西的
 //这个Module是告诉dragger2这个类是用来提供实例的
 @Module
-public class TopListModule {
+public class AppInfoModule {
 
     //通过构造方法把view传进来
-    private  AppInfoContract.TopListView mView;
+    private  AppInfoContract.AppInfoView mView;
 
-    public TopListModule(AppInfoContract.TopListView view){
+    public AppInfoModule(AppInfoContract.AppInfoView view){
         this.mView=view;
     }
 
@@ -36,13 +38,18 @@ public class TopListModule {
 //
 //    }
     @Provides
-    public  AppInfoContract.TopListView provideView(){
+    public  AppInfoContract.AppInfoView provideView(){
         return  mView;
     }
     @Provides
     public AppInfoModel provideModel(ApiService apiService){
         return new AppInfoModel(apiService);
     }
+
+//    @Provides
+//    public AppInfoAdapter  provideAdapter(ApiService apiService){
+//        return new AppInfoAdapter(apiService);
+//    }
 
 
 
