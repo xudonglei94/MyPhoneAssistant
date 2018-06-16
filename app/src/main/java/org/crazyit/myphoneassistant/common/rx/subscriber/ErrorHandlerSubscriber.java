@@ -1,10 +1,12 @@
 package org.crazyit.myphoneassistant.common.rx.subscriber;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import org.crazyit.myphoneassistant.common.exception.BaseException;
 import org.crazyit.myphoneassistant.common.rx.RxErrorHandler;
+import org.crazyit.myphoneassistant.ui.activity.LoginActivity;
 
 /**
  * Created by Administrator on 2018/6/11.
@@ -37,15 +39,18 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
         }
         else {
             mRxErrorHandler.showErrorMessage(baseException);
+
+            if (baseException.getCode()==BaseException.ERROR_TOKEN){
+                toLogin();
+            }
+
         }
-        //JsonParseException
-        //ApiException
-        //SocketException
-        //SocketTimeoutException
 
+    }
 
-
-
+    private void toLogin() {
+        Intent intent=new Intent(mContext, LoginActivity.class);
+        mContext.startActivity(intent);
     }
 
 }

@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import org.crazyit.myphoneassistant.common.Constant;
+import org.crazyit.myphoneassistant.common.util.ACache;
 import org.crazyit.myphoneassistant.common.util.DensityUtil;
 import org.crazyit.myphoneassistant.common.util.DeviceUtils;
 
@@ -58,6 +59,10 @@ public class CommonParamsInterceptor implements Interceptor {
             commonParamsMap.put(Constant.RESOLUTION, DensityUtil.getScreenW(mContext) + "*" + DensityUtil.getScreenH(mContext));
             commonParamsMap.put(Constant.SDK, DeviceUtils.getBuildVersionSDK() + "");
             commonParamsMap.put(Constant.DENSITY_SCALE_FACTOR, mContext.getResources().getDisplayMetrics().density + "");
+
+            //有些api是不需要token的
+            String token=ACache.get(mContext).getAsString(Constant.TOKEN);
+            commonParamsMap.put(Constant.TOKEN,token==null?"":token);
 
 
             //我们做一个判断是get还是post请求
