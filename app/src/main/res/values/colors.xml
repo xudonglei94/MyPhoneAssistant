@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#1379D6</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -8,6 +8,10 @@
     <color name="color_bg_guide2">#5e98c9</color>
     <color name="color_bg_guide3">#8eb021</color>
     <color name="color_w">#FFF</color>
+
+
+
+
 
 
     <color name="md_amber_100">#FFECB3</color>
@@ -287,4 +291,7 @@
     <color name="md_yellow_A200">#FFFF00</color>
     <color name="md_yellow_A400">#FFEA00</color>
     <color name="md_yellow_A700">#FFD600</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray_btn_bg">#EAEAEA</color>
+
 </resources>
