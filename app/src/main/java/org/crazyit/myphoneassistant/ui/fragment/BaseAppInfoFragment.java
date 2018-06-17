@@ -39,7 +39,7 @@ public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPrese
         initRecyclerView();
 
     }
-    private void initRecyclerView(){
+    protected void initRecyclerView(){
 
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()) );
 

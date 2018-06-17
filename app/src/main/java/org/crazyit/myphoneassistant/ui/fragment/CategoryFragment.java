@@ -20,6 +20,7 @@ import org.crazyit.myphoneassistant.di.component.DaggerRecommendComponent;
 import org.crazyit.myphoneassistant.di.module.CategoryModule;
 import org.crazyit.myphoneassistant.presenter.CategoryPresenter;
 import org.crazyit.myphoneassistant.presenter.contract.CategoryContract;
+import org.crazyit.myphoneassistant.ui.activity.CategoryAppActivity;
 import org.crazyit.myphoneassistant.ui.adapter.AppInfoAdapter;
 import org.crazyit.myphoneassistant.ui.adapter.CategoryAdapter;
 import org.crazyit.myphoneassistant.ui.widget.DividerItemDecoration;
@@ -73,18 +74,18 @@ public  class CategoryFragment extends ProgressFragment<CategoryPresenter> imple
 
         recycleView.setAdapter(mAdapter);
 
-//        recycleView.addOnItemTouchListener(new OnItemClickListener() {
-//            @Override
-//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//                Intent intent = new Intent(getActivity(), CategoryAppActivity.class);
-//
-//                intent.putExtra(Constant.CATEGORY,mAdapter.getData().get(position));
-//
-//                startActivity(intent);
-//
-//            }
-//        });
+        recycleView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                Intent intent = new Intent(getActivity(), CategoryAppActivity.class);
+
+                intent.putExtra(Constant.CATEGORY,mAdapter.getData().get(position));
+
+                startActivity(intent);
+
+            }
+        });
 
     }
 //    abstract  int type();

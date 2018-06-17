@@ -2,6 +2,7 @@ package org.crazyit.myphoneassistant.di.component;
 
 import org.crazyit.myphoneassistant.di.FragmentScope;
 import org.crazyit.myphoneassistant.di.module.AppInfoModule;
+import org.crazyit.myphoneassistant.ui.fragment.CategoryAppFragment;
 import org.crazyit.myphoneassistant.ui.fragment.GamesFragment;
 import org.crazyit.myphoneassistant.ui.fragment.TopListFragment;
 
@@ -17,6 +18,7 @@ public interface AppInfoComponent {
     //通过这个inject方法来和我们的fragment进行关联
     void injectTopListFragment(TopListFragment fragment) ;
     void injectGamesFragment(GamesFragment fragment);
+    void injectCategoryAppFragment(CategoryAppFragment fragment);
 
 
 }

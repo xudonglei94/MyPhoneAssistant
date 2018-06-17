@@ -30,11 +30,13 @@
         <activity
             android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppTheme.Notitle.FullScreen" />
-        <activity android:name=".ui.activity.LoginActivity"></activity>
+        <activity android:name=".ui.activity.LoginActivity" />
+
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule"/>
+            android:value="GlideModule" />
 
+        <activity android:name=".ui.activity.CategoryAppActivity"></activity>
     </application>
 
 </manifest>

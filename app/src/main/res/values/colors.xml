@@ -293,5 +293,7 @@
     <color name="md_yellow_A700">#FFD600</color>
     <color name="white">#FFFFFF</color>
     <color name="gray_btn_bg">#EAEAEA</color>
+    <color name="background">#F1F1F1</color>
 
 </resources>
+

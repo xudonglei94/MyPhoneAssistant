@@ -22,13 +22,19 @@ public class AppInfoPresenter extends  BasePresenter<AppInfoModel,AppInfoContrac
 
     public static  final  int TOP_LIST=1;
     public static  final  int GAME=2;
+    public static  final  int CATEGORY=3;
+
+    public  static final  int FEATURED=0;
+    public  static final  int TOPLIST=1;
+    public  static final  int NEWLIST=2;
+
 
     @Inject
     public AppInfoPresenter(AppInfoModel appInfoModel, AppInfoContract.AppInfoView topListView) {
         super(appInfoModel, topListView);
     }
 
-    public void  requestData(int type,int page){
+    public void  request(int type,int page,int categoryId,int flagType){
         Subscriber subscriber=null;
         //第一页显示一个loading的界面------------
         if (page==0){
@@ -57,18 +63,42 @@ public class AppInfoPresenter extends  BasePresenter<AppInfoModel,AppInfoContrac
             };
         }
 
-        Observable observable=getObservable(type,page);
+        Observable observable=getObservable(type,page,categoryId,flagType);
         observable.compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(subscriber);
     }
 
-    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type,int page){
+    public void  requestData(int type,int page){
+
+        request(type,page,0,0);
+
+    }
+    public  void requestCategoryApps(int categoryId,int page,int flagType){
+        request(CATEGORY,page,categoryId,flagType);
+
+
+
+
+    }
+
+    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type,int page,int categoryId,int flagType){
         switch (type){
             case TOP_LIST:
                 return  mModel.topList(page);
 
             case GAME:
                 return  mModel.games(page);
+
+            case CATEGORY:
+               if (flagType==FEATURED){
+                   return mModel.getFeaturedAppsByCategory(categoryId,page);
+               }else if (flagType==TOPLIST){
+                   return mModel.getTopListAppsByCategory(categoryId,page);
+
+               }else if (flagType==NEWLIST){
+
+                   return mModel.getNewListAppsByCategory(categoryId,page);
+               }
 
                 default:
                     return Observable.empty();
