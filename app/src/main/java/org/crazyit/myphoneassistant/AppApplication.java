@@ -2,6 +2,7 @@ package org.crazyit.myphoneassistant;
 
 import android.app.Application;
 import android.content.Context;
+import android.view.View;
 
 import org.crazyit.myphoneassistant.di.component.AppComponent;
 
@@ -17,6 +18,7 @@ public class AppApplication extends Application{
     //单例的东西我们都放在这里,有个dragger2之后就不需要这样做了可以实例化管理我们这个类可以对生命周期进行管理
 
 
+    private View mView;
 
     private AppComponent mAppComponent;
 
@@ -28,6 +30,15 @@ public class AppApplication extends Application{
     public AppComponent getAppComponent(){
         return mAppComponent;
     }
+
+    public   View getView(){
+        return mView;
+    }
+
+    public void setView(View mView) {
+        this.mView = mView;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

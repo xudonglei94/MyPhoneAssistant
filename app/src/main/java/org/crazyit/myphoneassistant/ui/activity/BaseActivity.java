@@ -27,7 +27,7 @@ public abstract class BaseActivity<T extends  BasePresenter> extends AppCompatAc
 
     private Unbinder mUnbinder;
 
-    private AppApplication mApplication;
+    protected AppApplication mApplication;
 
     //这个Presenter是泛型的我们不知道它是什么
     @Inject

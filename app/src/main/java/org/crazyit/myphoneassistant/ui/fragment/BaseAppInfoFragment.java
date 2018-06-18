@@ -1,9 +1,12 @@
 package org.crazyit.myphoneassistant.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.bean.AppInfo;
@@ -11,6 +14,7 @@ import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.presenter.AppInfoPresenter;
 import org.crazyit.myphoneassistant.presenter.contract.AppInfoContract;
+import org.crazyit.myphoneassistant.ui.activity.AppDetailActivity;
 import org.crazyit.myphoneassistant.ui.adapter.AppInfoAdapter;
 import org.crazyit.myphoneassistant.ui.widget.DividerItemDecoration;
 
@@ -51,6 +55,14 @@ public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPrese
 
         mAdapter.setOnLoadMoreListener(this);
         recycleView.setAdapter(mAdapter);
+        recycleView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mApplication.setView(view);
+                Intent intent=new Intent(getActivity(), AppDetailActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     //type是需要子类给我们传的因此提供一个抽象方法

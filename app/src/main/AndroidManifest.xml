@@ -36,7 +36,11 @@
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
 
-        <activity android:name=".ui.activity.CategoryAppActivity"></activity>
+        <activity android:name=".ui.activity.CategoryAppActivity" />
+        <activity android:name=".ui.activity.AppDetailActivity" android:theme="@style/AppTheme.Transparent">
+
+
+        </activity>
     </application>
 
 </manifest>
