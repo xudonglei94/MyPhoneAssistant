@@ -37,7 +37,6 @@ public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPrese
     @Override
     public void init() {
         mPresenter.requestData(type(),page);
-//        mPresenter.getTopListApps(page);
 
 
         initRecyclerView();
@@ -58,8 +57,11 @@ public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPrese
         recycleView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                AppInfo appInfo=mAdapter.getItem(position);
                 mApplication.setView(view);
                 Intent intent=new Intent(getActivity(), AppDetailActivity.class);
+                intent.putExtra("appinfo",appInfo);
                 startActivity(intent);
             }
         });
@@ -75,12 +77,6 @@ public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPrese
         return R.layout.template_recycler_view;
     }
 
-//    @Override
-//    public void setupActivityComponent(AppComponent appComponent) {
-////        DaggerTopListComponent.builder().appComponent(appComponent).topListModule(new AppInfoModule(this))
-////                .build().inject(this);
-//
-//    }
 
     @Override
     public void showResult(PageBean<AppInfo> pageBean) {

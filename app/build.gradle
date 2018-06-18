@@ -77,4 +77,8 @@ dependencies {
 
     compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 
+    compile 'com.ms-square:expandableTextView:0.1.4'
+
+    compile 'com.zoonref:simple-view-behavior:1.0'
+
 }

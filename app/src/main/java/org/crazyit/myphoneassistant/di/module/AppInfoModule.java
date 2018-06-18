@@ -17,7 +17,7 @@ import dagger.Provides;
  */
 //这里面的工作全部都是用来new东西的
 //这个Module是告诉dragger2这个类是用来提供实例的
-@Module
+@Module(includes = {AppModelModule.class})
 public class AppInfoModule {
 
     //通过构造方法把view传进来
@@ -41,10 +41,10 @@ public class AppInfoModule {
     public  AppInfoContract.AppInfoView provideView(){
         return  mView;
     }
-    @Provides
-    public AppInfoModel provideModel(ApiService apiService){
-        return new AppInfoModel(apiService);
-    }
+//    @Provides
+//    public AppInfoModel provideModel(ApiService apiService){
+//        return new AppInfoModel(apiService);
+//    }
 
 //    @Provides
 //    public AppInfoAdapter  provideAdapter(ApiService apiService){

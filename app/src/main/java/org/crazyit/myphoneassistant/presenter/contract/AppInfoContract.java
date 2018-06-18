@@ -33,10 +33,9 @@ public interface AppInfoContract {
 
 
     }
-//    interface  Presenter extends BasePresenter{
-//
-//        public  void requestDatas();
-//
-//
-//    }
+    interface  AppDetailView extends BaseView{
+
+        void showAppDetail(AppInfo appInfo);
+    }
+
 }

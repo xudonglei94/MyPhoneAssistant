@@ -12,10 +12,18 @@
 
 
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
 
 
 
@@ -27,6 +35,7 @@
             android:background="?attr/colorPrimary"
             app:title="@string/app_name"
             android:theme="@style/AppTheme.ToolBar"
+            app:layout_scrollFlags="scroll|enterAlways"
 
             >
 
@@ -39,15 +48,22 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:tabTextColor="@color/md_white_1000"
+            app:tabSelectedTextColor="@color/md_white_1000"
             app:tabMode="fixed">
 
 
         </android.support.design.widget.TabLayout>
+        </android.support.design.widget.AppBarLayout>
+
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
 
         </android.support.v4.view.ViewPager>
 
@@ -56,7 +72,7 @@
 
 
 
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 
 
