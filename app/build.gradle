@@ -79,7 +79,7 @@ dependencies {
     //pathview
     compile 'com.eftimoff:android-pathview:1.0.8@aar'
 ///////////////////////////////////////////
-//    compile project(path: ':rxdownload')
+    compile project(path: ':rxdownload')
 
 
 

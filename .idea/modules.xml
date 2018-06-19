@@ -5,6 +5,7 @@
       <module fileurl="file://E:\AndroidWS\MyPhoneAssistant-master\MyPhoneAssistant.iml" filepath="E:\AndroidWS\MyPhoneAssistant-master\MyPhoneAssistant.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyPhoneAssistant-master.iml" filepath="$PROJECT_DIR$/MyPhoneAssistant-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxdownload2/rxdownload.iml" filepath="$PROJECT_DIR$/rxdownload2/rxdownload.iml" />
     </modules>
   </component>
 </project>

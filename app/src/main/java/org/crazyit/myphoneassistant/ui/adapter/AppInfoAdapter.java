@@ -12,6 +12,8 @@ import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.common.Constant;
 import org.crazyit.myphoneassistant.common.ImageLoader.ImageLoader;
+import org.crazyit.myphoneassistant.ui.widget.DownloadButtonController;
+import org.crazyit.myphoneassistant.ui.widget.DownloadProgressButton;
 
 import java.util.List;
 
@@ -85,6 +87,9 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder> {
         if(textViewSize !=null){
             textViewSize.setText((item.getApkSize() / 1014 / 1024) +"Mb");
         }
+        DownloadProgressButton btn=helper.getView(R.id.btn_download);
+        DownloadButtonController.handClick(btn,item);
+
 
     }
 

@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':rxdownload'
+project(':rxdownload').projectDir = new File('rxdownload2')
