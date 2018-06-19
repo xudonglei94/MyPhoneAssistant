@@ -4,7 +4,8 @@ import org.crazyit.myphoneassistant.bean.BaseBean;
 import org.crazyit.myphoneassistant.bean.LoginBean;
 import org.crazyit.myphoneassistant.ui.BaseView;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Administrator on 2018/6/15.

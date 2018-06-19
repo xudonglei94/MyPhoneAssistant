@@ -6,6 +6,8 @@ import android.content.Context;
 
 import org.crazyit.myphoneassistant.common.util.ProgressDialogHandler;
 
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by Administrator on 2018/6/12.
@@ -16,6 +18,8 @@ public abstract class ProgressDialogSubscriber<T> extends  ErrorHandlerSubscribe
 
     ////
     private  ProgressDialogHandler mProgressDialogHandler;
+
+    private Disposable mDisposable;
 
     /////
     public ProgressDialogSubscriber(Context context){
@@ -28,7 +32,8 @@ public abstract class ProgressDialogSubscriber<T> extends  ErrorHandlerSubscribe
 
     @Override
     public void onCancelProgress() {
-        unsubscribe();
+        //这样便是取消订阅
+        mDisposable.dispose();
     }
 
 //    private Context mContext;
@@ -42,7 +47,8 @@ public abstract class ProgressDialogSubscriber<T> extends  ErrorHandlerSubscribe
 //    }
 
     @Override
-    public void onStart() {
+    public void onSubscribe(Disposable d) {
+        mDisposable=d;
         if (isShowProgressDialog()){
             this.mProgressDialogHandler.showProgressDialog();
         }
@@ -50,7 +56,7 @@ public abstract class ProgressDialogSubscriber<T> extends  ErrorHandlerSubscribe
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         if (isShowProgressDialog()){
             this.mProgressDialogHandler.dismissProgressDialog();
         }

@@ -19,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
@@ -29,6 +27,7 @@ import org.crazyit.myphoneassistant.bean.User;
 import org.crazyit.myphoneassistant.common.Constant;
 import org.crazyit.myphoneassistant.common.ImageLoader.GlideCircleTransform;
 import org.crazyit.myphoneassistant.common.font.MyPhoneFont;
+import org.crazyit.myphoneassistant.common.rx.RxBus;
 import org.crazyit.myphoneassistant.common.rx.RxHttpResponseCompat;
 import org.crazyit.myphoneassistant.common.util.ACache;
 import org.crazyit.myphoneassistant.common.util.PermissionUtil;
@@ -36,8 +35,7 @@ import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.ui.adapter.ViewPageAdapter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity {
 
@@ -69,12 +67,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        RxBus.get().register(this);
+        RxBus.getDefault().toObservable(User.class).subscribe(new Consumer<User>() {
+            @Override
+            public void accept(User user) throws Exception {
+                initUserHeadView(user);
+            }
+        });
 
         PermissionUtil.requestPermisson(this, Manifest.permission.READ_PHONE_STATE)
-                .subscribe(new Action1<Boolean>() {
+                .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void call(Boolean aBoolean) {
+                    public void accept(Boolean aBoolean) throws Exception {
 
                         if(aBoolean){
                             initDrawerLayout();
@@ -155,11 +158,6 @@ public class MainActivity extends BaseActivity {
         Toast.makeText(MainActivity.this,"您已退出登录",Toast.LENGTH_LONG).show();
     }
 
-     @Subscribe
-     public void getUser(User user){
-         initUserHeadView(user);
-
-     }
     private void initUserHeadView(User user){
 
         Glide.with(this).load(user.getLogo_url()).transform(new GlideCircleTransform(this)).into(mUserHeadView);
@@ -195,7 +193,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.get().unregister(this);
+//        RxBus.get().unregister(this);
+        //即使没有提供销毁的方法也没有关系因为它是一个单例的.
     }
 
 

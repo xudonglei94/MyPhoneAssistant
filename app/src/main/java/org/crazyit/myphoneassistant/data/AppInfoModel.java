@@ -7,8 +7,8 @@ import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.data.http.ApiService;
 
 
-import retrofit2.Callback;
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Administrator on 2018/6/9.

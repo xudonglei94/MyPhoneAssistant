@@ -7,7 +7,8 @@ import org.crazyit.myphoneassistant.ui.BaseView;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Administrator on 2018/6/15.
@@ -16,7 +17,7 @@ import rx.Observable;
 public interface CategoryContract {
     public interface  ICategoryModel{
 
-        public  Observable<BaseBean<List<Category>>> getCategories();
+        public Observable<BaseBean<List<Category>>> getCategories();
 
     }
 

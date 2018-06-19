@@ -5,6 +5,8 @@ import android.content.Context;
 import org.crazyit.myphoneassistant.common.exception.BaseException;
 import org.crazyit.myphoneassistant.ui.BaseView;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by Administrator on 2018/6/12.
  */
@@ -30,18 +32,15 @@ public  abstract  class ProgressSubcriber<T> extends ErrorHandlerSubscriber<T>  
     }
 
 
-
     @Override
-    public void onStart() {
-
+    public void onSubscribe(Disposable d) {
         if(isShowProgress()){
             mView.showLoading();
         }
-
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
 
         mView.dismissLoading();
     }

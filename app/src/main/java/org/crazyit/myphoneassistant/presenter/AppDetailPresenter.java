@@ -11,8 +11,7 @@ import org.crazyit.myphoneassistant.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+
 
 /**
  * Created by Administrator on 2018/6/14.
