@@ -10,9 +10,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.crazyit.myphoneassistant.Service.InstallAccessibilityService;
 import org.crazyit.myphoneassistant.common.apkparset.AndroidApk;
 
 import java.io.BufferedReader;
@@ -200,15 +202,54 @@ public class AppUtils {
     }
 
     public static boolean installApk(Context context, String filePath) {
-        File file = new File(filePath);
-        if (!file.exists() || !file.isFile() || file.length() <= 0) {
-            return false;
+
+
+
+        if(isAccessibilityEnabled(context, InstallAccessibilityService.class.getCanonicalName())){
+
+            File file = new File(filePath);
+            if (!file.exists() || !file.isFile() || file.length() <= 0) {
+                return false;
+            }
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+
+            return true;
         }
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
-        return true;
+        else {
+
+            context.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            return true;
+        }
+
+
+    }
+
+    public static boolean isAccessibilityEnabled(Context context,String serviceName) {
+
+        int ok = 0;
+        try {
+            ok = Settings.Secure.getInt(context.getApplicationContext().getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
+        } catch (Settings.SettingNotFoundException e) {
+        }
+
+        TextUtils.SimpleStringSplitter ms = new TextUtils.SimpleStringSplitter(':');
+        if (ok == 1) {
+            String settingValue = Settings.Secure.getString(context.getApplicationContext().getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (settingValue != null) {
+                ms.setString(settingValue);
+                while (ms.hasNext()) {
+                    String accessibilityService = ms.next();
+                    if (accessibilityService.equalsIgnoreCase(serviceName)) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return  ok==1;
     }
 
     public static boolean uninstallApk(Context context, String packageName) {
@@ -264,7 +305,6 @@ public class AppUtils {
     }
 
 
-    @SuppressLint("MissingPermission")
     public static void killProcesses(Context context, int pid, String processName) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         String packageName;
@@ -368,10 +408,13 @@ public class AppUtils {
         String filepath = String.format(String.format(context.getFilesDir().getParent() + File.separator + "%s", "shared_prefs"));
         FileUtils.deleteFileByDirectory(new File(filepath));
     }
+
+
+
+
     public static List<AndroidApk> getInstalledApps(Context context){
 
 
-        //通过Context对象来获取到PackageManager这个对象
         PackageManager pm = context.getPackageManager();
 
 
@@ -392,7 +435,7 @@ public class AppUtils {
             apk.setAppVersionName(info.versionName);
             apk.setLastUpdateTime(info.lastUpdateTime);
 
-            //从application中找path首先要判断是否为空
+
             ApplicationInfo applicationInfo = info.applicationInfo;
 
             if(applicationInfo !=null){
@@ -403,7 +446,6 @@ public class AppUtils {
                 apk.setDrawable(applicationInfo.loadIcon(pm));
 
 
-                //如果这两个条件成立的话说明这是系统自带的
                 apk.setSystem((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)>0);
             }
 
