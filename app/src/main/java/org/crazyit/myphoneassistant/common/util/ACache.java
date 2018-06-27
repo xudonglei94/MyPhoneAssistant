@@ -31,6 +31,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -659,9 +660,9 @@ public class ACache {
 
             Long oldestUsage = null;
             File mostLongUsedFile = null;
-            Set<Map.Entry<File, Long>> entries = lastUsageDates.entrySet();
+            Set<Entry<File, Long>> entries = lastUsageDates.entrySet();
             synchronized (lastUsageDates) {
-                for (Map.Entry<File, Long> entry : entries) {
+                for (Entry<File, Long> entry : entries) {
                     if (mostLongUsedFile == null) {
                         mostLongUsedFile = entry.getKey();
                         oldestUsage = entry.getValue();

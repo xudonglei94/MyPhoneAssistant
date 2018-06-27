@@ -48,9 +48,19 @@ public class AppDownloadInfo implements Serializable {
 
     private Disposable mDisposable;
 
+
+    private String dowanloadUrl;
     public String getDownloadUrl(){
 
+
+        if(dowanloadUrl !=null)
+            return  dowanloadUrl;
+
         return  this.getHost() + this.getApk();
+    }
+
+    public void setDowanloadUrl(String dowanloadUrl) {
+        this.dowanloadUrl = dowanloadUrl;
     }
 
     public void setThumbnail(String thumbnail) {

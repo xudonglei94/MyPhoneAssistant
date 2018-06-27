@@ -33,6 +33,14 @@ import org.crazyit.myphoneassistant.common.util.ACache;
 import org.crazyit.myphoneassistant.common.util.PermissionUtil;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.ui.adapter.ViewPageAdapter;
+import org.crazyit.myphoneassistant.ui.bean.FragmentInfo;
+import org.crazyit.myphoneassistant.ui.fragment.CategoryFragment;
+import org.crazyit.myphoneassistant.ui.fragment.GamesFragment;
+import org.crazyit.myphoneassistant.ui.fragment.RecommendFragment;
+import org.crazyit.myphoneassistant.ui.fragment.TopListFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
@@ -80,6 +88,8 @@ public class MainActivity extends BaseActivity {
                     public void accept(Boolean aBoolean) throws Exception {
 
                         if(aBoolean){
+                            initToolbar();
+
                             initDrawerLayout();
 
                             initTabLayout();
@@ -93,11 +103,44 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private List<FragmentInfo> initFragments(){
+        List<FragmentInfo>  mFragments=new ArrayList<>(4);
+        mFragments.add(new FragmentInfo("推荐",RecommendFragment.class));
+        mFragments.add(new FragmentInfo("排行",TopListFragment.class));
+        mFragments.add(new FragmentInfo("游戏",GamesFragment.class));
+        mFragments.add(new FragmentInfo("分类",CategoryFragment.class));
+        return mFragments;
+    }
+
     private void initTabLayout() {
-        PagerAdapter pagerAdapter=new ViewPageAdapter(getSupportFragmentManager());
+
+
+        PagerAdapter pagerAdapter=new ViewPageAdapter(getSupportFragmentManager(),initFragments());
         viewPager.setOffscreenPageLimit(pagerAdapter.getCount());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void initToolbar(){
+
+        toolBar.inflateMenu(R.menu.toolbar_menu);
+//        Menu menu  = mToolBar.getMenu();
+
+        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.action_download){
+
+                    startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+                }
+
+                return true;
+            }
+        });
+
+
+
     }
 
 
@@ -123,6 +166,11 @@ public class MainActivity extends BaseActivity {
                      case R.id.menu_logout:
                          //退出登录
                          logout();
+                         break;
+                     case R.id.menu_download_manager:
+
+                         toAppManagerActivity();
+
                          break;
                  }
                  return false;
@@ -189,11 +237,15 @@ public class MainActivity extends BaseActivity {
 
 
     }
+    private void toAppManagerActivity(){
+        startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        RxBus.get().unregister(this);
+//        RxBus.get().unregis ter(this);
         //即使没有提供销毁的方法也没有关系因为它是一个单例的.
     }
 

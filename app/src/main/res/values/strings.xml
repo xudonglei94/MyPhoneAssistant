@@ -36,5 +36,8 @@
     <string name="logining">正在登陆...</string>
     <string name="logout">退出登录</string>
     <string name="download">下载</string>
+    <string name="manage">管理</string>
     <string name="error_token">登录失效，请重新登录</string>
+    <string name="accessibility_service_description">智能安装，无需人工操作</string>
+    <string name="smart_install">我的手机助手智能安装</string>
 </resources>

@@ -18,59 +18,156 @@ import org.crazyit.myphoneassistant.ui.activity.AppDetailActivity;
 import org.crazyit.myphoneassistant.ui.adapter.AppInfoAdapter;
 import org.crazyit.myphoneassistant.ui.widget.DividerItemDecoration;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  * Created by Administrator on 2018/6/14.
  */
 
-public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPresenter> implements AppInfoContract.AppInfoView
-        ,BaseQuickAdapter.RequestLoadMoreListener {
+//public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPresenter> implements AppInfoContract.AppInfoView
+//        ,BaseQuickAdapter.RequestLoadMoreListener {
+//
+//    @BindView(R.id.recycle_view)
+//    RecyclerView recycleView;
+//
+//    @Inject
+//    RxDownload mRxDownload;
+//
+//    protected  AppInfoAdapter mAdapter;
+//
+//    int page=0;
+//
+//    @Override
+//    public void init() {
+//        mPresenter.requestData(type(),page);
+//
+//
+//        initRecyclerView();
+//
+//    }
+//    protected void initRecyclerView(){
+//
+//        recycleView.setLayoutManager(new LinearLayoutManager(getActivity()) );
+//
+//        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST);
+//
+//        recycleView.addItemDecoration(itemDecoration);
+//        //我们的Adapter是动态的变得通过我们的子类来动态的改变
+//        mAdapter=buildAdapter();
+//
+//        mAdapter.setOnLoadMoreListener(this);
+//        recycleView.setAdapter(mAdapter);
+//        recycleView.addOnItemTouchListener(new OnItemClickListener() {
+//            @Override
+//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+//
+//                AppInfo appInfo=mAdapter.getItem(position);
+//                mApplication.setView(view);
+//                Intent intent=new Intent(getActivity(), AppDetailActivity.class);
+//                intent.putExtra("appinfo",appInfo);
+//                startActivity(intent);
+//            }
+//        });
+//
+//    }
+//    //type是需要子类给我们传的因此提供一个抽象方法
+//    abstract  int type();
+//
+//    abstract  AppInfoAdapter buildAdapter();
+//
+//    @Override
+//    public int setLayout() {
+//        return R.layout.template_recycler_view;
+//    }
+//
+//
+//    @Override
+//    public void showResult(PageBean<AppInfo> pageBean) {
+//        mAdapter.addData(pageBean.getDatas());
+//
+//        if (pageBean.isHasMore()){
+//            page++;
+//        }
+//        mAdapter.setEnableLoadMore(pageBean.isHasMore());
+//    }
+//
+//    // 下拉加载如果完成了会调用这个方法
+//    @Override
+//    public void onLoadMoreComplete() {
+//        mAdapter.loadMoreComplete();
+//
+//    }
+//
+//    @Override
+//    public void onLoadMoreRequested() {
+//        mPresenter.requestData(type(),page);
+//    }
+//}
+public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresenter>  implements AppInfoContract.AppInfoView,
+        BaseQuickAdapter.RequestLoadMoreListener{
+
+
 
     @BindView(R.id.recycle_view)
-    RecyclerView recycleView;
+    RecyclerView mRecyclerView;
 
-    protected  AppInfoAdapter mAdapter;
 
-    int page=0;
+    @Inject
+    RxDownload mRxDownload;
+
+
+    protected AppInfoAdapter mAdapter;
+
+    int page =0;
+
+
 
     @Override
     public void init() {
-        mPresenter.requestData(type(),page);
 
+        mPresenter.requestData(type(),page);
 
         initRecyclerView();
 
+
     }
+
+
     protected void initRecyclerView(){
 
-        recycleView.setLayoutManager(new LinearLayoutManager(getActivity()) );
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) );
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST);
 
-        recycleView.addItemDecoration(itemDecoration);
-        //我们的Adapter是动态的变得通过我们的子类来动态的改变
-        mAdapter=buildAdapter();
+        mRecyclerView.addItemDecoration(itemDecoration);
+        mAdapter = buildAdapter();
 
         mAdapter.setOnLoadMoreListener(this);
-        recycleView.setAdapter(mAdapter);
-        recycleView.addOnItemTouchListener(new OnItemClickListener() {
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                AppInfo appInfo=mAdapter.getItem(position);
+
+
+                AppInfo appInfo = mAdapter.getItem(position);
                 mApplication.setView(view);
-                Intent intent=new Intent(getActivity(), AppDetailActivity.class);
+                Intent intent  = new Intent(getActivity(), AppDetailActivity.class);
                 intent.putExtra("appinfo",appInfo);
                 startActivity(intent);
             }
         });
 
     }
-    //type是需要子类给我们传的因此提供一个抽象方法
+
     abstract  int type();
 
-    abstract  AppInfoAdapter buildAdapter();
+    abstract AppInfoAdapter buildAdapter();
 
     @Override
     public int setLayout() {
@@ -78,25 +175,26 @@ public abstract class BaseAppInfoFragment extends  ProgressFragment<AppInfoPrese
     }
 
 
+
     @Override
     public void showResult(PageBean<AppInfo> pageBean) {
+
         mAdapter.addData(pageBean.getDatas());
 
-        if (pageBean.isHasMore()){
+        if(pageBean.isHasMore()){
             page++;
         }
         mAdapter.setEnableLoadMore(pageBean.isHasMore());
     }
 
-    // 下拉加载如果完成了会调用这个方法
     @Override
     public void onLoadMoreComplete() {
         mAdapter.loadMoreComplete();
-
     }
 
     @Override
     public void onLoadMoreRequested() {
+
         mPresenter.requestData(type(),page);
     }
 }

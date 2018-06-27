@@ -21,4 +21,5 @@ public class Constant {
     public static final String TOKEN = "token";
     public static final String USER = "user";
     public static final String CATEGORY = "category";
+    public static final String APK_DOWNLOAD_DIR = "apk_dl_dir";
 }

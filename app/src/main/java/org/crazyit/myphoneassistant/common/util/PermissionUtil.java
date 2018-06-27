@@ -2,6 +2,7 @@ package org.crazyit.myphoneassistant.common.util;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -18,12 +19,10 @@ public class PermissionUtil {
 
 
 
+    public static Observable<Boolean> requestPermisson(Context activity, String permission){
 
 
-    public static Observable<Boolean> requestPermisson(Activity activity, String permission){
-
-
-        RxPermissions rxPermissions=RxPermissions.getInstance(activity);
+        RxPermissions rxPermissions =  RxPermissions.getInstance(activity);
 
 
         return rxPermissions.request(permission);

@@ -18,41 +18,121 @@ import java.util.List;
  * Created by Administrator on 2018/6/7.
  */
 
+//public class ViewPageAdapter extends FragmentStatePagerAdapter {
+//
+//
+////    private List<FragmentInfo> mFragments=new ArrayList<>(4);
+//      private List<FragmentInfo> mFragments;
+//
+//    public ViewPageAdapter(FragmentManager fm, List<FragmentInfo> fragments) {
+//        super(fm);
+////        initFragments();
+//
+//        mFragments = fragments;
+//    }
+//
+//
+//
+//    @Override
+//    public Fragment getItem(int position) {
+//
+//        try {
+//            return (Fragment) mFragments.get(position).getFragment().newInstance();
+//
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return  null;
+////        Fragment  mFragment=null;
+////        switch (position){
+////            case 0:
+////                mFragment=new RecommendFragment();
+////                break;
+////            case 1:
+////                mFragment=new TopListFragment();
+////                break;
+////            case 2:
+////                mFragment=new GamesFragment();
+////                break;
+////            case 3:
+////                mFragment=new CategoryFragment();
+////                break;
+////        }
+////        return mFragment;
+//    }
+//
+//    @Override
+//    public int getCount() {
+//        return mFragments.size();
+//    }
+//
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return mFragments.get(position).getTitle();
+//    }
+//}
 public class ViewPageAdapter extends FragmentStatePagerAdapter {
 
 
-    private List<FragmentInfo> mFragments=new ArrayList<>(4);
 
-    public ViewPageAdapter(FragmentManager fm) {
+
+    private List<FragmentInfo> mFragments;
+
+
+    public ViewPageAdapter(FragmentManager fm,List<FragmentInfo> fragments) {
         super(fm);
-        initFragments();
+
+//        initFragments();
+
+        mFragments = fragments;
     }
 
-    private void initFragments(){
-        mFragments.add(new FragmentInfo("推荐",RecommendFragment.class));
-        mFragments.add(new FragmentInfo("排行",TopListFragment.class));
-        mFragments.add(new FragmentInfo("游戏",GamesFragment.class));
-        mFragments.add(new FragmentInfo("目录",CategoryFragment.class));
-    }
+
+
+
+
 
     @Override
     public Fragment getItem(int position) {
-        Fragment  mFragment=null;
-        switch (position){
-            case 0:
-                mFragment=new RecommendFragment();
-                break;
-            case 1:
-                mFragment=new TopListFragment();
-                break;
-            case 2:
-                mFragment=new GamesFragment();
-                break;
-            case 3:
-                mFragment=new CategoryFragment();
-                break;
+
+
+        try {
+            return (Fragment) mFragments.get(position).getFragment().newInstance();
+
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-        return mFragment;
+
+        return  null;
+
+//        Fragment fragment = null;
+//        switch (position){
+//
+//            case 0:
+//                fragment = new RecommendFragment();
+//                break;
+//
+//            case 1:
+//                fragment = new TopListFragment();
+//                break;
+//
+//            case 2:
+//                fragment = new GamesFragment();
+//                break;
+//
+//            case 3:
+//                fragment = new CategoryFragment();
+//                break;
+//
+//        }
+//
+//        return fragment;
     }
 
     @Override
@@ -60,9 +140,10 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
         return mFragments.size();
     }
 
-    @Nullable
+
     @Override
     public CharSequence getPageTitle(int position) {
         return mFragments.get(position).getTitle();
     }
 }
+

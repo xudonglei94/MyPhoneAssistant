@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.crazyit.myphoneassistant.common.apkparset.AndroidApk;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -20,6 +22,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -365,4 +368,58 @@ public class AppUtils {
         String filepath = String.format(String.format(context.getFilesDir().getParent() + File.separator + "%s", "shared_prefs"));
         FileUtils.deleteFileByDirectory(new File(filepath));
     }
+    public static List<AndroidApk> getInstalledApps(Context context){
+
+
+        //通过Context对象来获取到PackageManager这个对象
+        PackageManager pm = context.getPackageManager();
+
+
+        List<PackageInfo> packageInfos =  pm.getInstalledPackages(PackageManager.MATCH_UNINSTALLED_PACKAGES);
+
+
+        List<AndroidApk> apks = new ArrayList<>(packageInfos.size());
+
+        for (PackageInfo info : packageInfos){
+
+
+
+            AndroidApk apk = new AndroidApk();
+
+            apk.setPackageName(info.packageName);
+
+            apk.setAppVersionCode(info.versionCode+"");
+            apk.setAppVersionName(info.versionName);
+            apk.setLastUpdateTime(info.lastUpdateTime);
+
+            //从application中找path首先要判断是否为空
+            ApplicationInfo applicationInfo = info.applicationInfo;
+
+            if(applicationInfo !=null){
+
+
+                apk.setApkPath(applicationInfo.sourceDir);
+                apk.setAppName(applicationInfo.loadLabel(pm).toString());
+                apk.setDrawable(applicationInfo.loadIcon(pm));
+
+
+                //如果这两个条件成立的话说明这是系统自带的
+                apk.setSystem((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)>0);
+            }
+
+            apks.add(apk);
+
+        }
+        return  apks;
+
+
+
+
+
+
+
+
+    }
+
+
 }

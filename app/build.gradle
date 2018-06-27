@@ -33,7 +33,7 @@ dependencies {
 
 
     compile rootProject.ext.dependencies['butterknife']
-    annotationProcessor     rootProject.ext.dependencies['butterknife-compiler']
+    annotationProcessor rootProject.ext.dependencies['butterknife-compiler']
 
     compile rootProject.ext.dependencies['retrofit'] // 需要升级
     compile rootProject.ext.dependencies['retrofit-adapter-rxjava']// 需要升级
@@ -49,7 +49,6 @@ dependencies {
     compile rootProject.ext.dependencies["rxbinding"] // 需要升级
 ////////
     //    compile 'com.hwangjr.rxbus:rxbus:1.0.5'  //因为有错所以去掉
-
 
     //    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'//这个版本不支持rxjava2.0版本
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.8.2@aar' //降级
@@ -80,8 +79,6 @@ dependencies {
     compile 'com.eftimoff:android-pathview:1.0.8@aar'
 ///////////////////////////////////////////
     compile project(path: ':rxdownload')
-
-
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
