@@ -2,10 +2,14 @@ package org.crazyit.myphoneassistant.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -38,6 +42,7 @@ import org.crazyit.myphoneassistant.ui.fragment.CategoryFragment;
 import org.crazyit.myphoneassistant.ui.fragment.GamesFragment;
 import org.crazyit.myphoneassistant.ui.fragment.RecommendFragment;
 import org.crazyit.myphoneassistant.ui.fragment.TopListFragment;
+import org.crazyit.myphoneassistant.ui.widget.BadgeActionProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,18 +129,32 @@ public class MainActivity extends BaseActivity {
     private void initToolbar(){
 
         toolBar.inflateMenu(R.menu.toolbar_menu);
-//        Menu menu  = mToolBar.getMenu();
 
-        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        //这个地方现在就是失效了
+//        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//
+//                if(item.getItemId() == R.id.action_download){
+//
+//                    startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+//                }
+//
+//                return true;
+//            }
+//        });
+        MenuItem downloadMenuItem=toolBar.getMenu().findItem(R.id.action_download);
+
+        BadgeActionProvider badgeActionProvider= (BadgeActionProvider) MenuItemCompat.getActionProvider(downloadMenuItem);
+
+        badgeActionProvider.setIcon(DrawableCompat.wrap(new IconicsDrawable(this, MyPhoneFont.Icon.cniao_download).color(ContextCompat.getColor(this,R.color.white))));
+
+        badgeActionProvider.setText("10");
+        badgeActionProvider.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
 
-                if(item.getItemId() == R.id.action_download){
-
-                    startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
-                }
-
-                return true;
             }
         });
 
