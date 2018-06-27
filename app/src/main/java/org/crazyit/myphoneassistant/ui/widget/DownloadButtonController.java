@@ -15,6 +15,7 @@ import org.crazyit.myphoneassistant.common.rx.RxHttpResponseCompat;
 import org.crazyit.myphoneassistant.common.rx.RxSchedulers;
 import org.crazyit.myphoneassistant.common.util.ACache;
 import org.crazyit.myphoneassistant.common.util.AppUtils;
+import org.crazyit.myphoneassistant.common.util.PackageUtils;
 import org.crazyit.myphoneassistant.common.util.PermissionUtil;
 
 import java.io.File;
@@ -498,8 +499,8 @@ public class DownloadButtonController {
 //        mRxDownload.getRealFiles()
         String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + File.separator + appInfo.getReleaseKeyHash();
 
-        AppUtils.installApk(context,path);
-//        PackageUtils.install(context,path);
+//        AppUtils.installApk(context,path);
+        PackageUtils.install(context,path);
     }
 
     private void startDownload(final DownloadProgressButton btn, final AppInfo appInfo) {

@@ -11,6 +11,7 @@ import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.common.apkparset.AndroidApk;
 import org.crazyit.myphoneassistant.common.rx.RxSchedulers;
 import org.crazyit.myphoneassistant.common.util.AppUtils;
+import org.crazyit.myphoneassistant.common.util.PackageUtils;
 import org.crazyit.myphoneassistant.ui.widget.DownloadProgressButton;
 
 import io.reactivex.Observable;
@@ -84,7 +85,7 @@ public class AndroidApkAdapter extends BaseQuickAdapter<AndroidApk,BaseViewHolde
                                 deleteApk(item);
                             }
                             else {
-                                AppUtils.installApk(mContext,item.getApkPath());
+                                PackageUtils.install(mContext,item.getApkPath());
                             }
                         }
                     }

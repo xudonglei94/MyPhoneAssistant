@@ -14,16 +14,20 @@ import java.util.List;
 public class InstallAccessibilityService extends AccessibilityService {
 
 
-    @Override
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void onAccessibilityEvent(AccessibilityEvent event) {
+
+
         AccessibilityNodeInfo nodeInfo =  event.getSource();
 
         if(nodeInfo==null){
             return;
         }
 
-        int evenType=event.getEventType();
+
+        int evenType = event.getEventType();
+
+
         if(evenType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED ||
                 evenType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
         {
@@ -43,7 +47,13 @@ public class InstallAccessibilityService extends AccessibilityService {
 
 
 
+
+
+
     }
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void click(String text){
 
@@ -60,7 +70,7 @@ public class InstallAccessibilityService extends AccessibilityService {
 
 
         for (AccessibilityNodeInfo info : nodeInfos){
-            //通过它的类是一个button
+
             if(info.getClassName().equals("android.widget.Button") && info.isClickable()){
 
                 info.performAction(AccessibilityNodeInfo.ACTION_CLICK);
@@ -71,6 +81,8 @@ public class InstallAccessibilityService extends AccessibilityService {
 
 
     }
+
+
 
 
     @Override
