@@ -11,7 +11,7 @@ import io.reactivex.disposables.Disposable;
  * Created by Administrator on 2018/6/12.
  */
 
-public  abstract  class ProgressSubcriber<T> extends ErrorHandlerSubscriber<T>  {
+public  abstract  class ProgressSubcriber<T> extends ErrorHandlerSubscriber<T>   {
 
 
 
@@ -47,6 +47,9 @@ public  abstract  class ProgressSubcriber<T> extends ErrorHandlerSubscriber<T>  
 
     @Override
     public void onError(Throwable e) {
+
+        e.printStackTrace();
+
         BaseException baseException =  mRxErrorHandler.handleError(e);
         mView.showError(baseException.getDisplayMessage());
 

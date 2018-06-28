@@ -12,6 +12,8 @@ import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.bean.PageBean;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
+import org.crazyit.myphoneassistant.di.component.DaggerAppInfoComponent;
+import org.crazyit.myphoneassistant.di.module.AppInfoModule;
 import org.crazyit.myphoneassistant.presenter.AppInfoPresenter;
 import org.crazyit.myphoneassistant.presenter.contract.AppInfoContract;
 import org.crazyit.myphoneassistant.ui.activity.AppDetailActivity;
@@ -170,6 +172,14 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
     abstract AppInfoAdapter buildAdapter();
 
     @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
+        DaggerAppInfoComponent.builder().appComponent(appComponent).appInfoModule(new AppInfoModule(this))
+                .build().injectTopListFragment(this);
+
+    }
+
+    @Override
     public int setLayout() {
         return R.layout.template_recycler_view;
     }
@@ -195,6 +205,10 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
     @Override
     public void onLoadMoreRequested() {
 
+        mPresenter.requestData(type(),page);
+    }
+    @Override
+    public void onEmptyViewClick() {
         mPresenter.requestData(type(),page);
     }
 }

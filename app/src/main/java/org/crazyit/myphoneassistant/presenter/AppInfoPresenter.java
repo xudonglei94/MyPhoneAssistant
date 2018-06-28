@@ -29,6 +29,7 @@ public class AppInfoPresenter extends  BasePresenter<AppInfoModel,AppInfoContrac
     public  static final  int FEATURED=0;
     public  static final  int TOPLIST=1;
     public  static final  int NEWLIST=2;
+    public static final int HOT_APP_LIST=3;
 
 
     @Inject
@@ -105,6 +106,9 @@ public class AppInfoPresenter extends  BasePresenter<AppInfoModel,AppInfoContrac
                }else if (flagType==NEWLIST){
 
                    return mModel.getNewListAppsByCategory(categoryId,page);
+               }
+               else  if(flagType == HOT_APP_LIST){
+                   return  mModel.getHotApps(page);
                }
 
                 default:

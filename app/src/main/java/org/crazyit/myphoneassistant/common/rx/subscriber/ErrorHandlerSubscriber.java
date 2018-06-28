@@ -8,6 +8,8 @@ import org.crazyit.myphoneassistant.common.exception.BaseException;
 import org.crazyit.myphoneassistant.common.rx.RxErrorHandler;
 import org.crazyit.myphoneassistant.ui.activity.LoginActivity;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by Administrator on 2018/6/11.
  */
@@ -23,16 +25,18 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
 
         mRxErrorHandler=new RxErrorHandler(mContext);
     }
+    @Override
+    public void onSubscribe(Disposable d) {
 
-//    public  ErrorHandlerSubscriber(RxErrorHandler errorHandler){
-//        this.mRxErrorHandler=errorHandler;
-//    }
+    }
+
+
     @Override
     public void onError(Throwable e) {
 
-//        e.printStackTrace();
+
         BaseException baseException =  mRxErrorHandler.handleError(e);
-//        mRxErrorHandler.showErrorMessage(baseException);
+
         if(baseException==null){
             e.printStackTrace();
             Log.d("ErrorHandlerSubscriber",e.getMessage());

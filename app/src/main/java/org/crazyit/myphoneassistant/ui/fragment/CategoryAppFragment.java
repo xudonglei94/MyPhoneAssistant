@@ -12,6 +12,7 @@ import org.crazyit.myphoneassistant.ui.adapter.AppInfoAdapter;
  */
 
 
+
 @SuppressLint("ValidFragment")
 public class CategoryAppFragment extends  BaseAppInfoFragment {
 
@@ -20,17 +21,17 @@ public class CategoryAppFragment extends  BaseAppInfoFragment {
     private int categoryId;
     private int mFlagType;
 
-    @SuppressLint("ValidFragment")
+
     public   CategoryAppFragment(int categoryId, int flagType){
         this.categoryId=categoryId;
         this.mFlagType=flagType;
 
     }
 
-//    public  static CategoryAppFragment newInstance(int categoryId,int fragmentType){
-//        return new CategoryAppFragment(categoryId,fragmentType);
-//
-//    }
+    public  static CategoryAppFragment newInstance(int categoryId,int flagType){
+        return new CategoryAppFragment(categoryId,flagType);
+
+    }
 
     @Override
     public void init() {
@@ -50,10 +51,5 @@ public class CategoryAppFragment extends  BaseAppInfoFragment {
         return AppInfoAdapter.builder().showPosition(false).showBrief(true).showCategoryName(false).build();
     }
 
-    @Override
-    public void setupActivityComponent(AppComponent appComponent) {
-        DaggerAppInfoComponent.builder().appComponent(appComponent).appInfoModule(new AppInfoModule(this))
-                .build().injectCategoryAppFragment(this);
 
-    }
 }

@@ -1,6 +1,7 @@
 package org.crazyit.myphoneassistant.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,8 @@ import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.bean.Banner;
 import org.crazyit.myphoneassistant.bean.IndexBean;
 import org.crazyit.myphoneassistant.common.ImageLoader.ImageLoader;
+import org.crazyit.myphoneassistant.ui.activity.HotAppActivity;
+import org.crazyit.myphoneassistant.ui.activity.SubjectActivity;
 import org.crazyit.myphoneassistant.ui.widget.BannerLayout;
 import org.crazyit.myphoneassistant.ui.widget.DividerItemDecoration;
 
@@ -175,6 +178,12 @@ public class IndexMultipleAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onClick(View v) {
+        if (v.getId()==R.id.layout_hot_app){
+            mContext.startActivity(new Intent(mContext, HotAppActivity.class));
+        }else if (v.getId()==R.id.layout_hot_subject){
+            mContext.startActivity(new Intent(mContext, SubjectActivity.class));
+
+        }
 
     }
 
