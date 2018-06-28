@@ -41,10 +41,6 @@ public class SubjectActivity extends BaseActivity {
 
     SubjectDetailFragment mDetailFragment;
 
-//    @Override
-//    public int setLayout() {
-//        return R.layout.template_toolbar_framelayout;
-//    }
     @Override
     public int setLayout() {
         return R.layout.activity_subject;
@@ -72,8 +68,8 @@ public class SubjectActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-//                handNavigation();
-                finish();
+                handNavigation();
+//                finish();
 
 
             }
@@ -88,22 +84,21 @@ public class SubjectActivity extends BaseActivity {
         showSubjectDetailFragmentRxBus();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        handNavigation();
-//    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        handNavigation();
+    }
 
-//    private void handNavigation(){
-//
-//
-//        if(fragmentIndex == FRAGMENT_SUBJECT){
-//            finish();
-//        }
-//        else {
-//            showSubjectFragment();
-//        }
-//    }
+    private void handNavigation(){
+
+        if(fragmentIndex == FRAGMENT_SUBJECT){
+            finish();
+        }
+        else {
+            showSubjectFragment();
+        }
+    }
 
     private void showSubjectDetailFragmentRxBus() {
 
@@ -120,14 +115,14 @@ public class SubjectActivity extends BaseActivity {
     }
     private void  showSubjectDetailFragment(Subject subject){
 
-//        fragmentIndex = FRAGMENT_DETAIL;
+        fragmentIndex = FRAGMENT_DETAIL;
         FragmentTransaction ft = mFragmentManager.beginTransaction();
 
         if(mDetailFragment != null){
             ft.remove(mDetailFragment);
         }
 
-        mDetailFragment = new SubjectDetailFragment();
+        mDetailFragment = new SubjectDetailFragment(subject);
         ft.add(R.id.content,mDetailFragment);
 
 
@@ -140,11 +135,11 @@ public class SubjectActivity extends BaseActivity {
     private void  showSubjectFragment(){
 
 
-//        fragmentIndex = FRAGMENT_SUBJECT;
-//        mToolBar.setTitle("主题");
+        fragmentIndex = FRAGMENT_SUBJECT;
+        mToolBar.setTitle("主题");
         FragmentTransaction ft = mFragmentManager.beginTransaction();
 
-//        hideFragment(ft);
+        hideFragment(ft);
         if(mSubjectFragment == null){
             mSubjectFragment = new SubjectFragment();
 
@@ -155,24 +150,25 @@ public class SubjectActivity extends BaseActivity {
         }
 
         ft.commit();
-        mToolBar.setTitle("主题");
+//        mToolBar.setTitle("主题");
 
 
     }
 
 
 
-//    private void  hideFragment(FragmentTransaction ft){
-//
-//        if(mSubjectFragment != null){
-//            ft.hide(mSubjectFragment);
-//        }
-//        if(mDetailFragment != null){
-//            ft.hide(mDetailFragment);
-//        }
-//
-//
-//    }
+    //show它之前还需要还必须要把所有的fragment进行隐藏
+    private void  hideFragment(FragmentTransaction ft){
+
+        if(mSubjectFragment != null){
+            ft.hide(mSubjectFragment);
+        }
+        if(mDetailFragment != null){
+            ft.hide(mDetailFragment);
+        }
+
+
+    }
 
 
 
