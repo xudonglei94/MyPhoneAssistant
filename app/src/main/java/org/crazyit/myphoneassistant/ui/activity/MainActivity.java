@@ -129,18 +129,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         toolBar.inflateMenu(R.menu.toolbar_menu);
 
         //这个地方现在就是失效了
-//        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//
-//                if(item.getItemId() == R.id.action_download){
-//
-//                    startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
-//                }
-//
-//                return true;
-//            }
-//        });
+        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.action_search){
+
+                    startActivity(new Intent(MainActivity.this,SearchActivity.class));
+                }
+                return true;
+            }
+        });
         MenuItem downloadMenuItem=toolBar.getMenu().findItem(R.id.action_download);
 
         badgeActionProvider= (BadgeActionProvider) MenuItemCompat.getActionProvider(downloadMenuItem);

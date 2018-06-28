@@ -52,8 +52,16 @@ public class CommonParamsInterceptor implements Interceptor {
 
         try {
 
+            //我们做一个判断是get还是post请求
+            String method = request.method();
             HashMap<String, Object> commonParamsMap = new HashMap<>();
-            commonParamsMap.put(Constant.IMEI, DeviceUtils.getIMEI(mContext));
+
+            String  imei=DeviceUtils.getIMEI(mContext);
+            if(imei !=null && imei.startsWith("000000")){
+                imei ="5284047f4ffb4e04824a2fd1d1f0cd62";
+            }
+
+            commonParamsMap.put(Constant.IMEI, imei);
             commonParamsMap.put(Constant.MODEL, DeviceUtils.getModel());
             commonParamsMap.put(Constant.LANGUAGE, DeviceUtils.getLanguage());
             commonParamsMap.put(Constant.os, DeviceUtils.getBuildVersionIncremental());
@@ -66,8 +74,7 @@ public class CommonParamsInterceptor implements Interceptor {
             commonParamsMap.put(Constant.TOKEN,token==null?"":token);
 
 
-            //我们做一个判断是get还是post请求
-            String method = request.method();
+
             if (method.equals("GET")) {
                 HttpUrl httpUrl = request.url();
 

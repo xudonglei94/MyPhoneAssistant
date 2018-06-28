@@ -40,4 +40,12 @@
     <string name="error_token">登录失效，请重新登录</string>
     <string name="accessibility_service_description">智能安装，无需人工操作</string>
     <string name="smart_install">我的手机助手智能安装</string>
+    <string name="search_hint">搜索</string>
+    <string name="key_auto_check_apk_update">key_auto_check_apk_update</string>
+    <string name="key_smart_install">key_smart_install</string>
+    <string name="key_auto_delete_apk">key_auto_delete_apk</string>
+    <string name="key_root_install">key_root_install</string>
+    <string name="key_clear_cache">key_clear_cache</string>
+    <string name="key_apk_download_dir">key_apk_download_dir</string>
+    <string name="key_about_me">key_about_me</string>
 </resources>
