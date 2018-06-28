@@ -12,6 +12,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import org.crazyit.myphoneassistant.R;
+import org.crazyit.myphoneassistant.common.Constant;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.ui.adapter.ViewPageAdapter;
 import org.crazyit.myphoneassistant.ui.bean.FragmentInfo;
@@ -21,6 +22,7 @@ import org.crazyit.myphoneassistant.ui.fragment.DownloadingFragment;
 import org.crazyit.myphoneassistant.ui.fragment.GamesFragment;
 import org.crazyit.myphoneassistant.ui.fragment.InstalledAppAppFragment;
 import org.crazyit.myphoneassistant.ui.fragment.TopListFragment;
+import org.crazyit.myphoneassistant.ui.fragment.UpgradeAppFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,8 @@ public class AppManagerActivity extends BaseActivity {
 
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
+
+    private  int position;
 
 
     private void initToolbar() {
@@ -77,8 +81,10 @@ public class AppManagerActivity extends BaseActivity {
     @Override
     public void init() {
 
+        position=getIntent().getIntExtra(Constant.POSITION,0);
         initToolbar();
         initTablayout();
+
 
     }
 
@@ -94,6 +100,10 @@ public class AppManagerActivity extends BaseActivity {
 
         mTabLayout.setupWithViewPager(mViewPager);
 
+        mViewPager.setCurrentItem(position);
+        mTabLayout.getTabAt(position).select();
+
+
 
     }
 
@@ -105,6 +115,7 @@ public class AppManagerActivity extends BaseActivity {
 
         mFragments.add(new FragmentInfo("下载",DownloadingFragment.class));
         mFragments.add(new FragmentInfo ("已完成", DownloadedFragment.class));
+        mFragments.add(new FragmentInfo ("升级", UpgradeAppFragment.class));
         mFragments.add(new FragmentInfo ("已安装", InstalledAppAppFragment.class));
 
         return  mFragments;

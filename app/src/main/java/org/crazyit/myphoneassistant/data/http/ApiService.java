@@ -12,6 +12,7 @@ import org.crazyit.myphoneassistant.bean.requestbean.LoginRequestBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.subjects.Subject;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -71,6 +72,23 @@ public interface ApiService {
 
     @GET("app/{id}")
     Observable<BaseBean<AppInfo>> getAppDetail(@Path("id") int id);
+
+    @GET("apps/updateinfo")
+    Observable<BaseBean<List<AppInfo>>> getAppsUpdateinfo(@Query("packageName") String packageName,@Query("versionCode") String versionCode);
+
+
+    @GET("subject/hot")
+    Observable<BaseBean<PageBean<Subject>>> subjects(@Query("page") int page);
+
+//    @GET("subject/{id}")
+//    Observable<BaseBean<SubjectDetail>> subjectDetail(@Path("id") int id);
+
+    @GET("search/suggest")
+    Observable<BaseBean<List<String>>> searchSuggest(@Query("keyword") String keyword);
+
+
+//    @GET("search")
+//    Observable<BaseBean<SearchResult>> search(@Query("keyword") String keyword);
 
 
 

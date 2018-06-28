@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
@@ -22,7 +23,8 @@
         android:layout_centerVertical="true"
         android:textSize="18dp"
         style="@style/Text_Title"
-        android:text="1."/>
+        android:visibility="gone"
+        />
 
 
     <ImageView
@@ -82,7 +84,7 @@
             android:id="@+id/txt_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="社交"
+            android:visibility="gone"
             style="@style/Text_Content"
             />
 
@@ -92,9 +94,40 @@
             android:id="@+id/txt_brief"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="社交"
+            android:visibility="gone"
             style="@style/Text_Content"
             />
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/view_changelog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            app:maxCollapsedLines="1"
+            app:animDuration="200">
+
+
+            <TextView
+                android:id="@+id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                style="@style/Text_Content"
+
+                />
+
+
+            <ImageButton
+                android:id="@+id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"/>
+
+
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
 
 
 

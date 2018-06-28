@@ -36,6 +36,10 @@ import org.crazyit.myphoneassistant.common.rx.RxHttpResponseCompat;
 import org.crazyit.myphoneassistant.common.util.ACache;
 import org.crazyit.myphoneassistant.common.util.PermissionUtil;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
+import org.crazyit.myphoneassistant.di.component.DaggerMainComponent;
+import org.crazyit.myphoneassistant.di.module.MainModule;
+import org.crazyit.myphoneassistant.presenter.MainPresenter;
+import org.crazyit.myphoneassistant.presenter.contract.MainContract;
 import org.crazyit.myphoneassistant.ui.adapter.ViewPageAdapter;
 import org.crazyit.myphoneassistant.ui.bean.FragmentInfo;
 import org.crazyit.myphoneassistant.ui.fragment.CategoryFragment;
@@ -50,7 +54,7 @@ import java.util.List;
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.MainView {
 
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
@@ -67,6 +71,8 @@ public class MainActivity extends BaseActivity {
     private ImageView mUserHeadView;
     private TextView mTextUserName;
 
+    private  BadgeActionProvider badgeActionProvider;
+
 
     @Override
     public int setLayout() {
@@ -75,6 +81,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
+        DaggerMainComponent.builder().appComponent(appComponent)
+                .mainModule(new MainModule(this))
+                .build()
+                .inject(this);
+
+
+
 
     }
 
@@ -87,24 +100,9 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        PermissionUtil.requestPermisson(this, Manifest.permission.READ_PHONE_STATE)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
+       mPresenter.requestPermisson();
 
-                        if(aBoolean){
-                            initToolbar();
-
-                            initDrawerLayout();
-
-                            initTabLayout();
-
-                            initUser();
-                        }else {
-                            //------
-                        }
-                    }
-                });
+       mPresenter.getAppUpdateInfo();
 
     }
 
@@ -145,15 +143,20 @@ public class MainActivity extends BaseActivity {
 //        });
         MenuItem downloadMenuItem=toolBar.getMenu().findItem(R.id.action_download);
 
-        BadgeActionProvider badgeActionProvider= (BadgeActionProvider) MenuItemCompat.getActionProvider(downloadMenuItem);
+        badgeActionProvider= (BadgeActionProvider) MenuItemCompat.getActionProvider(downloadMenuItem);
 
         badgeActionProvider.setIcon(DrawableCompat.wrap(new IconicsDrawable(this, MyPhoneFont.Icon.cniao_download).color(ContextCompat.getColor(this,R.color.white))));
 
-        badgeActionProvider.setText("10");
         badgeActionProvider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+
+                Intent intent=new Intent(MainActivity.this,AppManagerActivity.class);
+                if (badgeActionProvider.getBadgeNum()>0){
+
+                    intent.getIntExtra(Constant.POSITION,2);
+                }
+                startActivity(intent);
 
             }
         });
@@ -269,4 +272,32 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void requestPermissonSuccess() {
+        initToolbar();
+        initDrawerLayout();
+        initTabLayout();
+        initUser();
+
+    }
+
+    @Override
+    public void requestPermissonFail() {
+        Toast.makeText(MainActivity.this,"授权失败....",Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void changeAppNeedUpdateCount(int count) {
+
+
+        if(count>0){
+            badgeActionProvider.setText(count+"");
+        }
+        else{
+            badgeActionProvider.hideBadge();
+        }
+
+
+    }
 }

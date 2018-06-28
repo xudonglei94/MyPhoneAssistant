@@ -4,7 +4,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import org.crazyit.myphoneassistant.R;
+import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.common.apkparset.AndroidApk;
+import org.crazyit.myphoneassistant.di.component.AppComponent;
+import org.crazyit.myphoneassistant.di.component.DaggerAppManagerComponent;
+import org.crazyit.myphoneassistant.di.module.AppManagerModule;
 import org.crazyit.myphoneassistant.presenter.AppManagerPresenter;
 import org.crazyit.myphoneassistant.presenter.contract.AppManagerContract;
 import org.crazyit.myphoneassistant.ui.widget.DividerItemDecoration;
@@ -39,6 +43,16 @@ public abstract class AppManagerFragment extends ProgressFragment<AppManagerPres
         return R.layout.template_recycler_view;
     }
 
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
+        DaggerAppManagerComponent.builder()
+                .appComponent(appComponent)
+                .appManagerModule(new AppManagerModule(this))
+                .build().inject(this);
+
+    }
+
     private void setupRecyclerView() {
 
 
@@ -59,6 +73,11 @@ public abstract class AppManagerFragment extends ProgressFragment<AppManagerPres
 
     @Override
     public void showDownloading(List<DownloadRecord> downloadRecords) {
+
+    }
+
+    @Override
+    public void showUpdateApps(List<AppInfo> appInfos) {
 
     }
 

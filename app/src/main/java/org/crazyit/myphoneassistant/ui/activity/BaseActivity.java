@@ -13,6 +13,7 @@ import com.mikepenz.iconics.context.IconicsLayoutInflater;
 import org.crazyit.myphoneassistant.AppApplication;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
 import org.crazyit.myphoneassistant.presenter.BasePresenter;
+import org.crazyit.myphoneassistant.ui.BaseView;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2018/6/10.
  */
 
-public abstract class BaseActivity<T extends  BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends  BasePresenter> extends AppCompatActivity implements BaseView {
 
     private Unbinder mUnbinder;
 
@@ -69,4 +70,19 @@ public abstract class BaseActivity<T extends  BasePresenter> extends AppCompatAc
     public abstract void setupActivityComponent(AppComponent appComponent);
     //fragment后面都有这个方法我们可以把这个方法抽出来放到我们的父类里面
     public  abstract void init();
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
 }

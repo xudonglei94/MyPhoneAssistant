@@ -70,15 +70,15 @@ public class DownloadedFragment extends AppManagerFragment {
     }
 
 
-    @Override
-    public void setupActivityComponent(AppComponent appComponent) {
-
-        DaggerAppManagerComponent.builder()
-                .appComponent(appComponent)
-                .appManagerModule(new AppManagerModule(this))
-                .build().injectDownloaded(this);
-
-    }
+//    @Override
+//    public void setupActivityComponent(AppComponent appComponent) {
+//
+//        DaggerAppManagerComponent.builder()
+//                .appComponent(appComponent)
+//                .appManagerModule(new AppManagerModule(this))
+//                .build().injectDownloaded(this);
+//
+//    }
 
 
     @Override

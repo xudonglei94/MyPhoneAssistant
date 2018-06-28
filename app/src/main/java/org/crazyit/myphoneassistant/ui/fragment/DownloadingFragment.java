@@ -31,18 +31,18 @@ public class DownloadingFragment  extends AppManagerFragment {
 
     @Override
     protected RecyclerView.Adapter setupAdapter() {
-        mAdapter = new DownloadingAdapter(mPresenter.geRxDowanload());
+        mAdapter = new DownloadingAdapter(mPresenter.getRxDowanload());
         return mAdapter;
     }
 
 
-    @Override
-    public void setupActivityComponent(AppComponent appComponent) {
-
-        DaggerAppManagerComponent.builder().appComponent(appComponent).appManagerModule(new AppManagerModule(this))
-                .build().inject(this);
-
-    }
+//    @Override
+//    public void setupActivityComponent(AppComponent appComponent) {
+//
+//        DaggerAppManagerComponent.builder().appComponent(appComponent).appManagerModule(new AppManagerModule(this))
+//                .build().inject(this);
+//
+//    }
 
     @Override
     public void showDownloading(List<DownloadRecord> downloadRecords) {

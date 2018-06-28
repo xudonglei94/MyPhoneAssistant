@@ -34,15 +34,15 @@ public class InstalledAppAppFragment extends AppManagerFragment {
         return mAdapter;
     }
 
-    @Override
-    public void setupActivityComponent(AppComponent appComponent) {
-
-        DaggerAppManagerComponent.builder().appManagerModule(new AppManagerModule(this))
-                .appComponent(appComponent).build().injectInstalled(this);
-
-
-
-    }
+//    @Override
+//    public void setupActivityComponent(AppComponent appComponent) {
+//
+//        DaggerAppManagerComponent.builder().appManagerModule(new AppManagerModule(this))
+//                .appComponent(appComponent).build().injectInstalled(this);
+//
+//
+//
+//    }
 
 
     @Override

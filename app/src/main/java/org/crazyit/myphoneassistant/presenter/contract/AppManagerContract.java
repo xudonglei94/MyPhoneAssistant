@@ -1,5 +1,6 @@
 package org.crazyit.myphoneassistant.presenter.contract;
 
+import org.crazyit.myphoneassistant.bean.AppInfo;
 import org.crazyit.myphoneassistant.common.apkparset.AndroidApk;
 import org.crazyit.myphoneassistant.ui.BaseView;
 
@@ -23,6 +24,7 @@ public interface AppManagerContract {
 
         void showDownloading(List<DownloadRecord> downloadRecords);
         void showApps(List<AndroidApk> apps);
+        void showUpdateApps(List<AppInfo> appInfos);
 
 
 
