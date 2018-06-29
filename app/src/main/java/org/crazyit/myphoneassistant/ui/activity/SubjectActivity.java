@@ -18,8 +18,6 @@ import org.crazyit.myphoneassistant.R;
 import org.crazyit.myphoneassistant.bean.Subject;
 import org.crazyit.myphoneassistant.common.rx.RxBus;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
-import org.crazyit.myphoneassistant.di.component.DaggerSubjectComponent;
-import org.crazyit.myphoneassistant.di.module.SubjectModule;
 import org.crazyit.myphoneassistant.ui.fragment.SubjectDetailFragment;
 import org.crazyit.myphoneassistant.ui.fragment.SubjectFragment;
 
@@ -43,7 +41,7 @@ public class SubjectActivity extends BaseActivity {
 
     @Override
     public int setLayout() {
-        return R.layout.activity_subject;
+        return R.layout.template_toolbar_framelayout;
     }
 
 

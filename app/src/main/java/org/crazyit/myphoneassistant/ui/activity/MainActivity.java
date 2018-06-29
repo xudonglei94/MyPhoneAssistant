@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ import org.crazyit.myphoneassistant.common.rx.RxHttpResponseCompat;
 import org.crazyit.myphoneassistant.common.util.ACache;
 import org.crazyit.myphoneassistant.common.util.PermissionUtil;
 import org.crazyit.myphoneassistant.di.component.AppComponent;
+//import org.crazyit.myphoneassistant.di.component.DaggerMainComponent;
 import org.crazyit.myphoneassistant.di.component.DaggerMainComponent;
 import org.crazyit.myphoneassistant.di.module.MainModule;
 import org.crazyit.myphoneassistant.presenter.MainPresenter;
@@ -93,6 +95,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void init() {
+        boolean key_smart_install= getSharedPreferences(getPackageName()+"_preferences",MODE_PRIVATE).getBoolean("key_smart_install",false);
+
+        Log.d("MainActivity","key_smart_install="+key_smart_install);
         RxBus.getDefault().toObservable(User.class).subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) throws Exception {
@@ -146,16 +151,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         badgeActionProvider.setIcon(DrawableCompat.wrap(new IconicsDrawable(this, MyPhoneFont.Icon.cniao_download).color(ContextCompat.getColor(this,R.color.white))));
 
+//        badgeActionProvider.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent=new Intent(MainActivity.this,AppManagerActivity.class);
+//                if (badgeActionProvider.getBadgeNum()>0){
+//
+//                    intent.getIntExtra(Constant.POSITION,2);
+//                }
+//                startActivity(intent);
+//
+//            }
+//        });
         badgeActionProvider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(MainActivity.this,AppManagerActivity.class);
-                if (badgeActionProvider.getBadgeNum()>0){
+                toAppManagerActivity(badgeActionProvider.getBadgeNum()>0?2:0);
 
-                    intent.getIntExtra(Constant.POSITION,2);
-                }
-                startActivity(intent);
 
             }
         });
@@ -190,7 +204,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                          break;
                      case R.id.menu_download_manager:
 
-                         toAppManagerActivity();
+                         toAppManagerActivity(1);
+
+                         break;
+                     case R.id.menu_app_uninstall:
+
+                         toAppManagerActivity(3);
+
+                         break;
+                     case R.id.menu_app_update:
+
+                         toAppManagerActivity(2);
+
+                         break;
+
+                     case R.id.menu_setting:
+
+                         startActivity(new Intent(MainActivity.this,SettingActivity.class));
 
                          break;
                  }
@@ -198,7 +228,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
              }
          });
 
-         toolBar.inflateMenu(R.menu.toolbar_menu);
+//         toolBar.inflateMenu(R.menu.toolbar_menu);
 
 
          ActionBarDrawerToggle mDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,toolBar,R.string.open,R.string.close);
@@ -258,8 +288,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     }
-    private void toAppManagerActivity(){
-        startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+    private void toAppManagerActivity(int position){
+        Intent intent = new Intent(MainActivity.this,AppManagerActivity.class);
+
+        intent.putExtra(Constant.POSITION,position);
+
+        startActivity(new Intent(intent));
 
     }
 
